@@ -7,4 +7,3 @@ Flask-Migrate
 flask-restful-swagger
 passlib
 pdfkit
-uwsgi
