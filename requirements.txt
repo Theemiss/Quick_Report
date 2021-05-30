@@ -1,0 +1,9 @@
+Flask
+Flask-RESTful
+Flask-JWT-Extended
+Flask-SQLAlchemy
+Flask-Cors
+Flask-Migrate
+flask-restful-swagger
+passlib
+pdfkit
