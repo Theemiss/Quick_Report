@@ -1,7 +1,9 @@
 
+from datetime import datetime
 import os
 from models.car import Car
 from models.comapny import Company
+from models.feedback import Feedback
 from models.user import Users
 from models.report import Report
 from flask_restful import reqparse, Resource
@@ -9,6 +11,7 @@ from flask import abort, jsonify, make_response, request, render_template, make_
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import pdfkit
 from models.RapportMatcher import RapportCar
+
 
 UPLOAD_DIRECTORY = "media"
 if not os.path.exists(UPLOAD_DIRECTORY):
@@ -47,6 +50,15 @@ rapport = reqparse.RequestParser()
 rapport.add_argument(
     'DriverName', help='This field cannot be blank', required=True)
 rapport.add_argument('CarId', help='This field cannot be blank', required=True)
+rapport.add_argument(
+    'DriverLastName', help='This field cannot be blank', required=True)
+rapport.add_argument(
+    'DriverPermit', help='This field cannot be blank', required=True)
+rapport.add_argument('DriverPermitValidation',
+                     help='This field cannot be blank', required=True)
+rapport.add_argument(
+    'DriverAdresse', help='This field cannot be blank', required=True)
+
 
 pdf_reader = reqparse.RequestParser()
 pdf_reader.add_argument(
@@ -56,18 +68,24 @@ pdf_reader.add_argument(
 
 
 class ReportNew(Resource):
+    """
+        Create new rapport
+    """
     @jwt_required()
     def post(self):
         client_id = get_jwt_identity()
         data = rapport.parse_args()
         user = Users.query.filter_by(id=client_id).first()
         rp = Report(driver=data['DriverName'], client=client_id,
-                    car=data['CarId'], company_id=user.comany_token)
+                    car=data['CarId'], company_id=user.comany_token, l_name=data['DriverLastName'], addr=data['DriverAdresse'], per=data['DriverPermit'], per_v=datetime.utcnow())#data['DriverPermitValidation']
         rp.save_to_db()
         return make_response(jsonify(rp.to_dict()), 201)
 
     @jwt_required()
     def get(self):
+        """
+            Get all raport belong to this client
+        """
         client_id = get_jwt_identity()
         user = Users.query.filter_by(id=client_id).first()
         all_report = Report.query.filter_by(client_id=client_id).all()
@@ -79,6 +97,9 @@ class ReportNew(Resource):
 
 
 def repport_builder(cls, client, car):
+    """
+        Build a rapport dict
+    """
     user = Users.query.filter_by(id=client).first()
     car = Car.query.filter_by(id=car, CIN=user.CIN).first()
     data = {**user.to_dict(), **car.to_dict(), "DriverName": cls.driver_name}
@@ -88,6 +109,9 @@ def repport_builder(cls, client, car):
 
 
 class Reportid(Resource):
+    """
+        Get Rapport by id
+    """
     @jwt_required()
     def get(self, id):
         client_id = get_jwt_identity()
@@ -98,7 +122,11 @@ class Reportid(Resource):
 
 
 class ReportPdf(Resource):
+    @jwt_required()
     def get(self, a):
+        """
+            Generate pdf file for the rapport
+        """
         try:
             rapportmatcher = RapportCar.query.filter_by(id=a).first()
             CarA = Report.query.filter_by(id=rapportmatcher.CAR_A).first()
@@ -136,3 +164,25 @@ class ReportPdf(Resource):
             return response
         except:
             return abort(500)
+
+
+feedback = reqparse.RequestParser()
+feedback.add_argument(
+    'Descreption', help='This field cannot be blank', required=True)
+feedback.add_argument(
+    'Report', help='This field cannot be blank', required=True)
+
+
+class NewFeedBack(Resource):
+    @jwt_required()
+    def post(self):
+        admin_id = get_jwt_identity()
+        admin = Users.query.filter_by(id=admin_id).first()
+        data = feedback.parse_args()
+        repport_id = Report.query.filter_by(id=data['Report']).first()
+        if repport_id is None:
+            return make_response(jsonify({'error': "Wrong Information"}), 401)
+        else:
+            new_feedback = Feedback(
+                desscreption=data['Descreption'], rapport=data['Report'])
+        make_response(jsonify(new_feedback.to_dict()), 201)

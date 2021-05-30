@@ -89,6 +89,9 @@ def repport_builder(cls, client, car):
 
 
 class CompanyAllRepport(Resource):
+    """
+        Get All rapport belong to company
+    """
     @jwt_required()
     def get(self):
         id = get_jwt_identity()

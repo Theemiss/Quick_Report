@@ -130,7 +130,7 @@ class sign_up(Resource):
             abort(400, "user already registred")  # existing user
         #date =  datetime.strptime(data['PermitValidation'], '%a, %d %b %Y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
         user = Users(email=data['Email'], token=data['CompanyToken'], f_name=data['FirstName'], l_name=data['LastName'],
-                     phone=data['Phone'], p_id=['PermitId'], p_v=datetime.now(), addr=data['Adresse'], cin=data['CIN'])
+                     phone=data['Phone'], p_id=data['PermitId'], p_v=datetime.now(), addr=data['Adresse'], cin=data['CIN'])
         user.hash_password(data['Password'])
         user.save_to_db()
         jwt = user.id

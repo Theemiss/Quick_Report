@@ -36,6 +36,9 @@ class NewInsurance(Resource):
 
 
 class NewCar(Resource):
+    """
+        Create new Car
+    """
     def post(self):
         data = car_helper.parse_args()
         inID = Insurance.query.filter_by(id=data['InsuranceId']).first()
@@ -66,6 +69,9 @@ class GetUserCar(Resource):
 
 
 class GetClientCarid(Resource):
+    """
+        Get Current user Car by id
+    """
     @jwt_required()
     def get(self, id):
         id_user = get_jwt_identity()
