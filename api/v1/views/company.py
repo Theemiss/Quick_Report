@@ -34,7 +34,7 @@ class company_route_all(Resource):
         companys = {}
         for x in all:
             data = x.to_dict()
-            key = x.__class__ + '.' + x.id
+            key =   key = data['__class__'] + '.' + data['id']
             companys[key] = data
         return make_response(jsonify(companys), 200)
 
