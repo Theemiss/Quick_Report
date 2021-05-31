@@ -7,3 +7,4 @@ Flask-Migrate
 flask-restful-swagger
 passlib
 pdfkit
+python-dotenv

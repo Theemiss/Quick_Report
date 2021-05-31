@@ -55,3 +55,4 @@ def user_lookup_callback(_jwt_header, jwt_data):
 
 https://flask-jwt-extended.readthedocs.io/en/stable/add_custom_data_claims/
 https://flask-jwt-extended.readthedocs.io/en/stable/refreshing_tokens/
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://jztcmnavqvekbf:4e05e1665e4573ddfca5cba53c4788910d5ff6ac306b8a696b15aaa6914c146c@ec2-54-220-170-192.eu-west-1.compute.amazonaws.com:5432/dc3fefsncq4lvc'

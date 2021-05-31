@@ -68,7 +68,7 @@ class GetUserCar(Resource):
         return make_response(jsonify(all), 200)
 
 
-class GetClientCarid(Resource):
+class GetClientCarId(Resource):
     """
         Get Current user Car by id
     """

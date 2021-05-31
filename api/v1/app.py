@@ -5,6 +5,8 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful_swagger import swagger
+from dotenv import dotenv_values
+config = dotenv_values('.env')
 app = Flask(__name__)
 api = swagger.docs(Api(app), apiVersion='0.1')
 jwt = JWTManager(app)
@@ -12,19 +14,7 @@ jwt = JWTManager(app)
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-#app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:55664730@localhost:5432/report'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://jztcmnavqvekbf:4e05e1665e4573ddfca5cba53c4788910d5ff6ac306b8a696b15aaa6914c146c@ec2-54-220-170-192.eu-west-1.compute.amazonaws.com:5432/dc3fefsncq4lvc'
-#app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
-#app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SECRET_KEY'] = 'ThisIsHardestThing'
 
-app.config['JWT_SECRET_KEY'] = 'Dude!WhyShouldYouEncryptIt'
-
-
-app.config['JWT_BLACKLIST_ENABLED'] = True
-app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 
 
 class TokenBlocklist(db.Model):
@@ -84,7 +74,7 @@ api.add_resource(CompanyAllClient, "/api/company/client")
 api.add_resource(AdminUserID, "/api/company/client/<id>")
 # Get All Report that bellong to current Company
 api.add_resource(CompanyAllRepport, '/api/company/report')
-from api.v1.views import NewCar, GetUserCar, NewInsurance, GetClientCarid
+from api.v1.views import NewCar, GetUserCar, NewInsurance, GetClientCarId
 
 # Cars and insurrance Endpoint
 api.add_resource(NewInsurance, '/api/insurance/new')  # Create new insurance
@@ -92,7 +82,7 @@ api.add_resource(NewCar, '/api/car/new')  # Create new car
 # All Car that belong to the current client
 api.add_resource(GetUserCar, '/api/client/cars')
 # Car by id that belong current Client
-api.add_resource(GetClientCarid, '/api/client/cars/<id>')
+api.add_resource(GetClientCarId, '/api/client/cars/<id>')
 from api.v1.views import ReportNew, Reportid, ReportPdf, Media, AllMedia
 
 # Rapport Creation and Handling
