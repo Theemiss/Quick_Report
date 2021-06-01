@@ -50,6 +50,7 @@ class Login(Resource):
 
     def post(self):
         data = login.parse_args()
+        print(data)
         current_user = Users.query.filter_by(email=data['Email']).one_or_none()
         password = request.json.get("Password", None)
         if not current_user:
@@ -87,6 +88,7 @@ class Login(Resource):
                     header = {}
                     header['refresh_token'] = refresh_token
                     header['access_token'] = access_token
+                    print(make_response(jsonify(body), 200, header))
                     return make_response(jsonify(body), 200, header)
                 else:
                     return make_response(jsonify({'message': 'Wrong credentials'}), 400)
@@ -99,7 +101,7 @@ class TokenRefresh(Resource):
         current_user = get_jwt_identity()
         # return a non-fresh token for the user
         new_token = create_access_token(identity=current_user, fresh=False)
-        return make_response(jsonify({'access_token': new_token}), 201)
+        return make_response(jsonify({'token': new_token}), 201)
 
 
 class Logout(Resource):
@@ -127,7 +129,11 @@ class sign_up(Resource):
         data = signup.parse_args()
 
         if Users.query.filter_by(email=data['Email']).first() is not None:
-            abort(400, "user already registred")  # existing user
+            abort(400, "user already registred") 
+        if Users.query.filter_by(permit_id=data['PermitId']).first() is not None:
+            abort(400, "user already registred")
+        if Users.query.filter_by(CIN=data['CIN']).first() is not None:
+            abort(400, "user already registred")
         #date =  datetime.strptime(data['PermitValidation'], '%a, %d %b %Y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
         user = Users(email=data['Email'], token=data['CompanyToken'], f_name=data['FirstName'], l_name=data['LastName'],
                      phone=data['Phone'], p_id=data['PermitId'], p_v=datetime.now(), addr=data['Adresse'], cin=data['CIN'])
