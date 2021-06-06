@@ -6,6 +6,7 @@ from flask_restful import reqparse, Resource
 from flask import abort, jsonify, make_response, request
 from datetime import datetime
 from flask_jwt_extended import (jwt_required, get_jwt_identity)
+from flask_restful_swagger import swagger
 
 car_helper = reqparse.RequestParser()
 car_helper.add_argument(
@@ -22,8 +23,38 @@ class NewInsurance(Resource):
     """
         Create new Insurance
     """
+    @swagger.operation(
+        notes='New Insurance ',
+        responseClass=Insurance.__name__,
+        nickname=' new Insurance',
+        parameters=[{
+            "name" : "valid",
+            "description": "date",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "DATETIME",
+            "paramType": "body"
+        }],
+        responseMessages=[
+            {
+              "code": 201,
+              "message": "new Insurance"
+            },
+            {
+                "code": 400,
+              "message": "Not a JSON"
+            },
+            {
+                "code": 401,
+              "message": "missing date"
+            }
 
+          ]
+        )
     def post(self):
+        """
+        Create new Insurance
+        """
         if not request.get_json():
             abort(400, description="Not a JSON")
         date = request.json.get("valid", None)
@@ -36,10 +67,63 @@ class NewInsurance(Resource):
 
 
 class NewCar(Resource):
-    """
-        Create new Car
-    """
+   
+    @swagger.operation(
+        notes='New Car ',
+        responseClass=Car.__name__,
+        nickname='car  ',
+        parameters=[{
+            "name" : "InsuranceId",
+            "description": "id of Insurance",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "String",
+            "paramType": "body"
+        },
+        {
+            "name" : "Type",
+            "description": "Type of car",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "String",
+            "paramType": "body"
+        },
+        {
+            "name" : "Mark",
+            "description": "Mark of  car",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "String",
+            "paramType": "body"
+        },
+        {
+            "name" : "CIN",
+            "description": "CIN of the owner of the car",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "String",
+            "paramType": "body"
+        }],
+        responseMessages=[
+            {
+              "code": 201,
+              "message": "new Car info"
+            },
+            {
+                "code": 400,
+              "message": "Not a JSON"
+            },
+            {
+                "code": 401,
+              "message": "Not a valid insurance id"
+            }
+
+          ]
+        )
     def post(self):
+        """
+        Create new Car
+        """   
         data = car_helper.parse_args()
         inID = Insurance.query.filter_by(id=data['InsuranceId']).first()
         if inID is None:
@@ -55,8 +139,32 @@ class GetUserCar(Resource):
     """
         Match User by his car
     """
+    @swagger.operation(
+        notes='Get current logged user Car ',
+        responseClass=Insurance.__name__,
+        nickname=' car ',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "all car belong to current logged in user"
+            }
+            
+
+          ]
+        )
     @jwt_required()
     def get(self):
+        """
+        Match User by his car
+        """
         id_user = get_jwt_identity()
         user = Users.query.filter_by(id=id_user).first()
         Cars = Car.query.filter_by(CIN=user.CIN).all()
@@ -69,11 +177,37 @@ class GetUserCar(Resource):
 
 
 class GetClientCarId(Resource):
-    """
-        Get Current user Car by id
-    """
+
+    @swagger.operation(
+        notes='Get current logged user Car by id ',
+        responseClass=Insurance.__name__,
+        nickname='  car',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "car id info"
+            },
+                 {
+              "code": 403,
+              "message": "Not Found"
+            }
+            
+
+          ]
+        )
     @jwt_required()
     def get(self, id):
+        """
+        Get Current user Car by id
+        """
         id_user = get_jwt_identity()
         user = Users.query.filter_by(id=id_user).first()
         Cars = Car.query.filter_by(CIN=user.CIN, id=id).first()

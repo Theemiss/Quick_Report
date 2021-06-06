@@ -88,11 +88,11 @@ api.add_resource(TokenRefresh, "/api/refresh")  # Token refrecher
 api.add_resource(ClientUserForm, "/api/client")
 # Company Action Web
 # Get All Client that Belong to this Comapny
-api.add_resource(CompanyAllClient, "/api/company/client")
+api.add_resource(CompanyAllClient, "/api/company/clients")
 # Get Client that belong to this comapny by id
-api.add_resource(AdminUserID, "/api/company/client/<id>")
+api.add_resource(AdminUserID, "/api/company/clients/<id>")
 # Get All Report that bellong to current Company
-api.add_resource(CompanyAllRepport, '/api/company/report')
+api.add_resource(CompanyAllRepport, '/api/company/reports')
 from api.v1.views import NewCar, GetUserCar, NewInsurance, GetClientCarId
 
 # Cars and insurrance Endpoint

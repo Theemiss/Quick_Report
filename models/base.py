@@ -38,7 +38,3 @@ class BaseModel:
 
         db.session.commit()
 
-    @classmethod
-    def find_by_username(cls, id):
-
-        return cls.query.filter_by(id=id).first()
