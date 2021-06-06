@@ -1,7 +1,7 @@
 # Quick Report
 
 ## API 
-* api 
+* api : <http://102.37.113.211/>
 * models
 * tests
 
