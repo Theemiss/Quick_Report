@@ -11,11 +11,26 @@ app = Flask(__name__)
 api = swagger.docs(Api(app), apiVersion='0.1')
 jwt = JWTManager(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:55664730@localhost:5432/report"
-app.config['SECRET_KEY'] = "Qucikreportadmin"
+
+
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+#app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:55664730@localhost:5432/quick_report'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://jztcmnavqvekbf:4e05e1665e4573ddfca5cba53c4788910d5ff6ac306b8a696b15aaa6914c146c@ec2-54-220-170-192.eu-west-1.compute.amazonaws.com:5432/dc3fefsncq4lvc'
+
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'holbieQuickreport'
+
+app.config['JWT_SECRET_KEY'] = 'Qucikreportadmin'
+
+
+
 app.config['JWT_BLACKLIST_ENABLED'] = True
-app.config['SECRET_KEY'] = "holbieQuickreport"
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 

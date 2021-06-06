@@ -63,9 +63,7 @@ class Login(Resource):
                     refresh_token = create_refresh_token(
                         identity=current_user.id)
                     body = {
-                        'User': ' {}'.format(current_user.email),
-                        'token': '{}'.format(access_token),
-                        'Authonticate': current_user.authenticated
+                        'token': '{}'.format(access_token)
                     }
                     header = {}
                     header['refresh_token'] = refresh_token
@@ -80,10 +78,7 @@ class Login(Resource):
                     refresh_token = create_refresh_token(
                         identity=current_user.id)
                     body = {
-                        'User': ' {}'.format(current_user.email),
-                        'Client': '{}'.format(current_user.comany_token),
-                        'token': '{}'.format(access_token),
-                        'Authonticate': current_user.authenticated
+                        'token': '{}'.format(access_token)
                     }
                     header = {}
                     header['refresh_token'] = refresh_token

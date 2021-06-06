@@ -8,3 +8,4 @@ flask-restful-swagger
 passlib
 pdfkit
 python-dotenv
+psycopg2
