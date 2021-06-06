@@ -5,8 +5,9 @@ Flask-JWT-Extended
 Flask-SQLAlchemy
 Flask-Cors
 Flask-Migrate
-flask-restful-swagger-3
+flask-restful-swagger
 passlib
 pdfkit
 python-dotenv
 psycopg2
+flask-apispec
