@@ -1,10 +1,12 @@
 Flask
+wheel
 Flask-RESTful
 Flask-JWT-Extended
 Flask-SQLAlchemy
 Flask-Cors
 Flask-Migrate
-flask-restful-swagger
+flask-restful-swagger-3
 passlib
 pdfkit
 python-dotenv
+psycopg2

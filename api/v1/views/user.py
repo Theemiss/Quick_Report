@@ -4,6 +4,7 @@ from models.user import Users
 from flask import abort, jsonify, make_response, request
 from api.v1.app import db
 from datetime import datetime
+from flask_restful_swagger import swagger
 from datetime import timezone
 from flask_jwt_extended import (
     get_jwt, create_access_token, create_refresh_token, jwt_required, get_jwt_identity)
@@ -47,8 +48,42 @@ class Login(Resource):
         if Client Found and admin Authonticated True Admin else user
         and generate token
     """
-
+    @swagger.operation(
+        notes='Login',
+        responseClass=Users.__name__,
+        nickname=' login',
+        parameters=[{
+            "name" : "Email",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },{
+            "name" : "Password",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "token jwt"
+            },
+            {
+              "code": 400,
+              "message": "invalid"
+            }
+          ]
+        )
     def post(self):
+        """ Login : Post : Login by email and password
+        If client not found error  400
+        if Client Found and admin Authonticated True Admin else user
+        and generate token
+        """
         data = login.parse_args()
         print(data)
         current_user = Users.query.filter_by(email=data['Email']).one_or_none()
@@ -91,8 +126,34 @@ class Login(Resource):
 
 
 class TokenRefresh(Resource):
+    @swagger.operation(
+        notes='refrech token',
+        responseClass=Users.__name__,
+        nickname=' login',
+        parameters=[{
+            "name" : "token",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "token jwt"
+            },
+            {
+              "code": 400,
+              "message": "invalid"
+            }
+          ]
+        )    
     @jwt_required(refresh=True)
     def post(self):
+        """
+        return a non-fresh token for the user
+        """
         # retrive the user's identity from the refresh token using a Flask-JWT-Extended built-in method
         current_user = get_jwt_identity()
         # return a non-fresh token for the user
@@ -101,11 +162,31 @@ class TokenRefresh(Resource):
 
 
 class Logout(Resource):
-    """
-        Revoke token
-    """
+
+    @swagger.operation(
+        notes='Login',
+        responseClass=Users.__name__,
+        nickname=' login',
+        parameters=[{
+            "name" : "Token",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        }],
+        responseMessages=[
+            {
+              "code": 202,
+              "message": "Jwt revoked"
+            }
+          ]
+        )
     @jwt_required()
     def post(self):
+        """
+        Revoke token and logout
+        """
         from api.v1.app import TokenBlocklist
         jti = get_jwt()["jti"]
         now = datetime.now(timezone.utc)
@@ -118,8 +199,95 @@ class sign_up(Resource):
     """
     create user :
     """
-
+    @swagger.operation(
+        notes='Login',
+        responseClass=Users.__name__,
+        nickname=' login',
+        parameters=[{
+            "name" : "Email",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },{
+            "name" : "Password",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+        {
+            "name" : "CompanyToken",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+         {
+            "name" : "CIN",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+         {
+            "name" : "FirstName",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        }, {
+            "name" : "LastName",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+        {
+            "name" : "Adresse",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+        {
+            "name" : "Phone",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+         {
+            "name" : "PermitId",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        }],
+        responseMessages=[
+            {
+              "code": 201,
+              "message": "token jwt"
+            },
+            {
+              "code": 400,
+              "message": "user already registred"
+            }
+          ]
+        )
     def post(self):
+        """
+        create user :
+        """
         if not request.get_json():
             abort(400, description="Not a JSON")
         data = signup.parse_args()
@@ -139,9 +307,7 @@ class sign_up(Resource):
         access_token = create_access_token(identity=jwt)
         refresh_token = create_refresh_token(identity=jwt)
         body = {
-            'User': ' {}'.format(user.email),
-            'Client': '{}'.format(user.comany_token),
-            'Authonticate': user.authenticated
+            'token': '{}'.format(access_token),
         }
         header = {}
         header['refresh_token'] = refresh_token
@@ -155,8 +321,30 @@ class ClientUserForm(Resource):
         GET : Current user
 
     """
+    @swagger.operation(
+        notes='Modefie',
+        responseClass=Users.__name__,
+        nickname=' modefie ',
+        parameters=[{
+            "name" : "Token",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        }],
+        responseMessages=[
+            {
+              "code": 202,
+              "message": "modefied"
+            }
+          ]
+        )
     @jwt_required()
     def put(self):
+        """
+            Modefie user
+        """
         if not request.get_json():
             abort(400, description="Not a JSON")
         current_user_id = get_jwt_identity()
@@ -176,9 +364,30 @@ class ClientUserForm(Resource):
         except:
             abort(400, description="missing information  or invalid data")
         return make_response(jsonify({"User ": user.email, "Id": user.id}), 201)
-
+    @swagger.operation(
+        notes='Get Curent User info',
+        responseClass=Users.__name__,
+        nickname=' modefie ',
+        parameters=[{
+            "name" : "Token",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        }],
+        responseMessages=[
+            {
+              "code": 202,
+              "message": "all User info "
+            }
+          ]
+        )
     @jwt_required()
     def get(self):
+        """
+            Get current logged in info
+        """
         current_user_id = get_jwt_identity()
         user = Users.query.filter_by(id=current_user_id).first()
         return make_response(user.to_dict(), 201)

@@ -11,6 +11,7 @@ from flask import abort, jsonify, make_response, request, render_template, make_
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import pdfkit
 from models.RapportMatcher import RapportCar
+from flask_restful_swagger import swagger
 
 
 UPLOAD_DIRECTORY = "media"
@@ -19,6 +20,27 @@ if not os.path.exists(UPLOAD_DIRECTORY):
 
 
 class AllMedia(Resource):
+    @swagger.operation(
+        notes='Get files ',
+        responseClass=Report.__name__,
+        nickname='  files',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "all file in server"
+            }
+            
+
+          ]
+        )
     def get(self):
         """Endpoint to list files on the server."""
         files = []
@@ -30,11 +52,58 @@ class AllMedia(Resource):
 
 
 class Media(Resource):
+    @swagger.operation(
+        notes='get  file ',
+        responseClass=Report.__name__,
+        nickname='  get a file',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "file"
+            }
+            
+
+          ]
+        )
     def get(self, path):
+        """
+            get file 
+        """
         return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
+        
+    @swagger.operation(
+        notes='send  file ',
+        responseClass=Report.__name__,
+        nickname='  send a file',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "transfered"
+            }
+            
 
+          ]
+        )
     def post(self, filename):
-
+        """
+            send a file
+        """
         if "/" in filename:
             # Return 400 BAD REQUEST
             abort(400, "no subdirectories allowed")
@@ -71,8 +140,79 @@ class ReportNew(Resource):
     """
         Create new rapport
     """
+    @swagger.operation(
+        notes='Create new repport  ',
+        responseClass=Report.__name__,
+        nickname='  new  a repport',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        },{
+            "name" : "DriverName",
+            "description": "DriverName",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+        {
+            "name" : "CarId",
+            "description": "CarId",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },{
+            "name" : "DriverLastName",
+            "description": " DriverLastName",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+        {
+            "name" : "DriverAdresse",
+            "description": "DriverAdresse",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+        {
+            "name" : "DriverPermit",
+            "description": "DriverPermit",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },
+        {
+            "name" : "DriverPermitValidation",
+            "description": "DriverPermitValidation",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "date",
+            "paramType": "body"
+        },
+        ],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "rapport created info"
+            }
+            
+
+          ]
+        )
     @jwt_required()
     def post(self):
+        """
+            Create new repport 
+        """
         client_id = get_jwt_identity()
         data = rapport.parse_args()
         user = Users.query.filter_by(id=client_id).first()
@@ -81,6 +221,27 @@ class ReportNew(Resource):
         rp.save_to_db()
         return make_response(jsonify(rp.to_dict()), 201)
 
+    @swagger.operation(
+        notes='get all report belong to this User ',
+        responseClass=Report.__name__,
+        nickname='all report',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "ALL report info"
+            }
+            
+
+          ]
+        )
     @jwt_required()
     def get(self):
         """
@@ -112,8 +273,36 @@ class Reportid(Resource):
     """
         Get Rapport by id
     """
+    @swagger.operation(
+        notes='get repport by id  belong to this User ',
+        responseClass=Report.__name__,
+        nickname=' report',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "one  report info"
+            },
+            {
+                "code": 400,
+              "message": "not found"
+            }
+            
+
+          ]
+        )
     @jwt_required()
     def get(self, id):
+        """
+            get Rapport by id
+        """
         client_id = get_jwt_identity()
         user = Users.query.filter_by(id=client_id).first()
         report = Report.query.filter_by(client_id=client_id, id=id).first()
@@ -122,6 +311,31 @@ class Reportid(Resource):
 
 
 class ReportPdf(Resource):
+    @swagger.operation(
+        notes='Generate pdf',
+        responseClass=Report.__name__,
+        nickname=' report',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "pdf file"
+            },
+            {
+                "code": 400,
+              "message": "invalid"
+            }
+            
+
+          ]
+        )
     @jwt_required()
     def get(self, a):
         """
@@ -174,8 +388,51 @@ feedback.add_argument(
 
 
 class NewFeedBack(Resource):
+    @swagger.operation(
+        notes='Feedback create ',
+        responseClass=Feedback.__name__,
+        nickname=' Feedback',
+        parameters=[{
+            "name" : "Token",
+            "description": "jwt token",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        },{
+            "name" : "Report",
+            "description": "report id",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        },{
+            "name" : "Descreption",
+            "description": "Descreption ",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "body"
+        }
+        ],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "new feedback "
+            },
+            {
+                "code": 400,
+              "message": "invalid"
+            }
+            
+
+          ]
+        )
     @jwt_required()
     def post(self):
+        """
+            Create new feedback by admin 
+        """
         admin_id = get_jwt_identity()
         admin = Users.query.filter_by(id=admin_id).first()
         data = feedback.parse_args()

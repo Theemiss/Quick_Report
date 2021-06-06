@@ -6,18 +6,44 @@ from models.report import Report
 from flask_restful import reqparse, Resource
 from flask import abort, jsonify, make_response, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
+from flask_restful_swagger import swagger
 rapport = reqparse.RequestParser()
 rapport.add_argument('Email', help='This field cannot be blank', required=True)
 
 
 class company_route_all(Resource):
-    """
-        Create new company : Post
-        List all companys : GET
-    """
+    @swagger.operation(
+        notes='create a company',
+        responseClass=Company.__name__,
+        nickname='create',
+        parameters=[
+            {
+              "name": "name",
+              "description": "company name.",
+              "required": True,
+              "allowMultiple": False,
+              "dataType": "string",
+              "paramType": "body"
+            }
+          ],
+        responseMessages=[
+            {
+              "code": 201,
+              "message": {"name" :"name"}
+            },
+            {
+              "code": 400,
+              "message": "missing arguments or company already registred"
+            }
+          ]
+        )
+
+
 
     def post(self):
+        """
+        New company
+        """
         if not request.get_json():
             abort(400, description="Not a JSON")
         name = request.json.get('name')
@@ -28,8 +54,25 @@ class company_route_all(Resource):
         company = Company(name=name)
         company.save_to_db()
         return make_response(jsonify({"comapny ": company.name, "id": company.id}), 201)
-
+    @swagger.operation(
+        notes='get  all company',
+        responseClass=Company.__name__,
+        nickname='all company',
+        responseMessages=[
+            {
+              "code": 201,
+              "message": "all company"
+            },
+            {
+              "code": 400,
+              "message": "missing arguments or company already registred"
+            }
+          ]
+        )
     def get(self):
+        """
+        Get All company
+        """
         all = Company.query.all()
         companys = {}
         for x in all:
@@ -43,8 +86,34 @@ class CompanyAllClient(Resource):
     """
         All Client  to this company if admin 
     """
+    @swagger.operation(
+        notes='get  all client to this company you need jwt required',
+        responseClass=Users.__name__,
+        nickname='all Client belong to company',
+        parameters=[{
+            "name" : "token",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "all client"
+            },
+            {
+              "code": 400,
+              "message": "you are not admin"
+            }
+          ]
+        )
     @jwt_required()
     def get(self):
+        """
+        All Client  to this company if admin 
+        """  
         id = get_jwt_identity()
         admin = Users.query.filter_by(id=id).first()
         if admin.authenticated == True:
@@ -62,11 +131,35 @@ class CompanyAllClient(Resource):
 
 
 class AdminUserID(Resource):
-    """
-        Get specific user by id
-    """
+
+    @swagger.operation(
+        notes='get  a client belong to this company you need jwt required',
+        responseClass=Users.__name__,
+        nickname=' Client belong to company',
+        parameters=[{
+            "name" : "token",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "Client"
+            },
+            {
+              "code": 400,
+              "message": "you are not admin"
+            }
+          ]
+        )
     @jwt_required()
     def get(self, id):
+        """
+        Get specific user by id
+        """
         Admin_id = get_jwt_identity()
         admin = Users.query.filter_by(id=Admin_id).first()
         if admin.authenticated == True:
@@ -89,11 +182,35 @@ def repport_builder(cls, client, car):
 
 
 class CompanyAllRepport(Resource):
-    """
-        Get All rapport belong to company
-    """
+
+    @swagger.operation(
+        notes='get  a rapport belong to this company you need jwt required',
+        responseClass=Report.__name__,
+        nickname=' Client belong to company',
+        parameters=[{
+            "name" : "token",
+            "description": "autho",
+            "required": True,
+            "allowMultiple": False,
+            "dataType": "string",
+            "paramType": "header"
+        }],
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "all report"
+            },
+            {
+              "code": 400,
+              "message": "you are not admin"
+            }
+          ]
+        )
     @jwt_required()
     def get(self):
+        """
+        Get All rapport belong to company
+        """
         id = get_jwt_identity()
         admin = Users.query.filter_by(id=id).first()
         if admin.authenticated == True:
