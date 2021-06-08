@@ -4,7 +4,7 @@ import Clients from './components/Clients/clients'
 import Reports from './components/Reports/reports'
 import SignIn from './components/login/login'
 import './App.css';
-
+import useToken from './components/app/useToken'
 function setToken(userToken) {
   sessionStorage.setItem('token', JSON.stringify(userToken));
 }
@@ -17,7 +17,7 @@ function getToken() {
 
 
 function App() {
-  const token = getToken();
+  const { token, setToken } = useToken();
   if(!token) {
     return (<SignIn setToken={setToken}  />);
   }
@@ -32,7 +32,7 @@ function App() {
 
         <Route exact path="/contact">
         </Route>
-        <Route exact path="/reports">onst history = useHistory();
+        <Route exact path="/reports">
           <Reports />
         </Route>
         <Route exact path="/clients" >
