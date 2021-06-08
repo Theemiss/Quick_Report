@@ -6,7 +6,6 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful_swagger import swagger
 from dotenv import dotenv_values
-from flask_apispec.extension import FlaskApiSpec
 config = dotenv_values('.env')
 app = Flask(__name__)
 api = swagger.docs(Api(app), apiVersion='2.8')

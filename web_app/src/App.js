@@ -4,7 +4,6 @@ import Clients from './components/Clients/clients'
 import Reports from './components/Reports/reports'
 import SignIn from './components/login/login'
 import './App.css';
-import { Router } from 'react-router';
 
 function setToken(userToken) {
   sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -33,14 +32,13 @@ function App() {
 
         <Route exact path="/contact">
         </Route>
-        <Route exact path="/reports">
+        <Route exact path="/reports">onst history = useHistory();
           <Reports />
         </Route>
         <Route exact path="/clients" >
           <Clients/>
         </Route>
         <Route exact path="/">
-        {SignIn ? <Redirect to="/clients" /> : <Clients />}
         </Route>
       </Switch>
       </BrowserRouter>

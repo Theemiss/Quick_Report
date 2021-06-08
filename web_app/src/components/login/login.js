@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -10,7 +9,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Link, Redirect, useHistory } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import PropTypes from 'prop-types';
 
 
@@ -21,7 +20,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {" "}
       {"Copyright © "}{" "}
-      <Link color="inherit">
+      <Link color="inherit" to='/'>
         Quick Report{" "}
       </Link>{" "}
       {new Date().getFullYear()} {"."}{" "}
@@ -48,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
 async function loginUser(credentials) {
   return fetch('http://102.37.113.211/api/login', {
     method: 'POST',
@@ -59,20 +59,20 @@ async function loginUser(credentials) {
     .then(data => data.json())
 }
 
+
 export default function SignIn({ setToken }) {
-  const history = useHistory();
   const classes = useStyles();
   const [Email, setUserName] = useState();
   const [Password, setPassword] = useState();
+  console.log("holla");
   const handleSubmit = async e => {
     e.preventDefault();
-    try {
-      const token = await loginUser({ Email, Password });
-      setToken(token);
-    } catch (e) {
-      alert(e.message);
-    }
-  };
+    const token = await loginUser({
+      Email,
+      Password
+    });
+    setToken(token);
+  }
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
@@ -82,7 +82,7 @@ export default function SignIn({ setToken }) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>{" "}
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form}  onSubmit={handleSubmit}>
 
           <TextField
             variant="outlined"
@@ -93,7 +93,6 @@ export default function SignIn({ setToken }) {
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
             onChange={e => setUserName(e.target.value)}
           />
           <TextField
@@ -113,7 +112,6 @@ export default function SignIn({ setToken }) {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Link to="/clients">
             <Button
               text="SignIn"
               type="submit"
@@ -122,7 +120,6 @@ export default function SignIn({ setToken }) {
               color="primary"
               className={classes.submit}
             >Sign In</Button>
-          </Link>
         </form>{" "}
       </div>{" "}
       <Box mt={8}>

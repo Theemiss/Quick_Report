@@ -7,7 +7,7 @@ from models.feedback import Feedback
 from models.user import Users
 from models.report import Report
 from flask_restful import reqparse, Resource
-from flask import abort, jsonify, make_response, request, render_template, make_response, send_from_directory
+from flask import abort, json, jsonify, make_response, request, render_template, make_response, send_from_directory
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import pdfkit
 from models.RapportMatcher import RapportCar
@@ -306,9 +306,11 @@ class Reportid(Resource):
         client_id = get_jwt_identity()
         user = Users.query.filter_by(id=client_id).first()
         report = Report.query.filter_by(client_id=client_id, id=id).first()
-        data = repport_builder(report, report.client_id, report.car_id)
-        return make_response(jsonify(data), 200)
-
+        if report is not None:
+            data = repport_builder(report, report.client_id, report.car_id)
+            return make_response(jsonify(data), 200)
+        else:
+            return make_response(jsonify({}),200)
 
 class ReportPdf(Resource):
     @swagger.operation(
@@ -443,3 +445,16 @@ class NewFeedBack(Resource):
             new_feedback = Feedback(
                 desscreption=data['Descreption'], rapport=data['Report'])
         make_response(jsonify(new_feedback.to_dict()), 201)
+
+
+class FeedbackUser(Resource):
+    @jwt_required()
+    def get(self,repid):
+        id = get_jwt_identity()
+        feedback = Feedback.query.filter_by(rapport=repid).first()
+        if feedback is not None:
+            data = feedback.to_dict()
+            return make_response(jsonify({data}),200)
+        else:
+            return make_response(jsonify({}),200)
+

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Header, Footer } from '../common';
-import  DataTable  from './cientcontainer'
 
 export default function Clients(props) {
     return (
