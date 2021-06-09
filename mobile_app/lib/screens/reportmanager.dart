@@ -18,10 +18,6 @@ class _ReportManagerState extends State<ReportManager> {
         toolbarHeight: 70,
         title: Text('Reports History'),
         centerTitle: true,
-        // leading: IconButton(
-        //   onPressed: () {},
-        //   icon: Icon(Icons.menu),
-        // ),
         actions: [
           IconButton(
             onPressed: () {},
