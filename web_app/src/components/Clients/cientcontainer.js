@@ -30,8 +30,6 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
 
 ];
 
