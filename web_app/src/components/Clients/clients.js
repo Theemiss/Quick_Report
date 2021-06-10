@@ -19,8 +19,7 @@ export default function Clients() {
   const { token, setToken } = useToken();
   const [data, setData] = useState({});
   const Token = "Bearer ".concat(token)
-  const mystyle = {
-    BorderColor : 'blue'  };
+
   useEffect(() => {
 
     const fetchUserEmail = async () => {
@@ -46,13 +45,12 @@ export default function Clients() {
   for (const x in data) {
     arr.push(data[x])
   }
-
+let num = arr.length
   return (
     <div>
       <Header />
 
-      <h2 className='Title'>All Client</h2>
-
+      <h2 className='Title'>All Client <span class="badge bg gray-900 rounded-pill">{num}</span> </h2>
       <Tab.Container id="list-group-tabs-example" >
         <Row>
           <Col sm={6}>

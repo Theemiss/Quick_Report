@@ -64,14 +64,28 @@ export default function SignIn({ setToken }) {
   const classes = useStyles();
   const [Email, setUserName] = useState();
   const [Password, setPassword] = useState();
-  console.log("holla");
+  const [error, setError] = useState();
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({
+    const token = await loginUser({ 
       Email,
       Password
     });
-    setToken(token);
+    
+    if ( token.Authonticate == undefined ){
+      setError("Wrong Credential");
+      console.log(token.Authonticate )
+
+    }
+    if (token.Authonticate === false)
+       {
+      setError("You are not admin");
+      console.log(token.Authonticate )
+    }
+    else{
+      setToken(token);
+    }
+    
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -82,7 +96,7 @@ export default function SignIn({ setToken }) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>{" "}
-        <form className={classes.form}  onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={handleSubmit}>
 
           <TextField
             variant="outlined"
@@ -108,18 +122,17 @@ export default function SignIn({ setToken }) {
             onChange={e => setPassword(e.target.value)}
           />
 
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-            <Button
-              text="SignIn"
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >Sign In</Button>
+         {error && <div class="alert alert-warning" role="alert">
+          {error}
+          </div>} 
+          <Button
+            text="SignIn"
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >Sign In</Button>
         </form>{" "}
       </div>{" "}
       <Box mt={8}>
