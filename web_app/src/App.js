@@ -3,11 +3,10 @@ import { Switch, Route,BrowserRouter} from 'react-router-dom';
 import Clients from './components/Clients/clients'
 import Reports from './components/Reports/reports'
 import SignIn from './components/login/login'
-import Container from './components/Clients/cientcontainer'
 import './App.css';
 import useToken from './components/app/useToken'
-
-
+import Logout from './components/login/logout'
+import Index from './components/app/main'
 function App() {
   const { token, setToken } = useToken();
   if(!token) {
@@ -28,10 +27,15 @@ function App() {
 
         <Route exact path="/clients" component={Clients } />
         <Route exact path="/">
+          <Index/>
         </Route>
-        <Route name='Client' exact path="/client/:id" render={Container => Container(props)}>
+        <Route exact path="/logout" component={Logout} >
 
         </Route>
+        <Route exact path="/login" >
+        <SignIn setToken={setToken}  />
+        </Route>
+
       </Switch>
       </BrowserRouter>
     

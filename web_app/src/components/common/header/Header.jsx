@@ -9,7 +9,7 @@ function Header() {
     <section className="header">
       <section className="header-top">
         <section className="header-top__logo">
-          <a href="/" className="header-logo">Quick Report</a>
+          <a href="/" className="header-logo nav-link">Quick Report</a>
         </section>
         <section className="header-top__navbar">
           <section className="header-top__navigation">
