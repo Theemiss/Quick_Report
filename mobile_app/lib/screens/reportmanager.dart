@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
+import 'package:more_pro_ui_qr/home_screens/generated_reports.dart';
+import 'form_screens/caranddriverchoice.dart';
 
 class ReportManager extends StatefulWidget {
   const ReportManager({Key? key}) : super(key: key);
@@ -42,6 +44,16 @@ class _ReportManagerState extends State<ReportManager> {
             bottom: Radius.circular(25),
           ),
         ),
+      ),
+      body: GeneratedReports(),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => FirstChoices()));
+        },
+        label: const Text('Create new report'),
+        icon: const Icon(Icons.add),
+        backgroundColor: Colors.blueAccent,
       ),
     );
   }

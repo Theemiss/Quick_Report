@@ -59,8 +59,11 @@ class AboutTheApp extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Container(
+              padding: EdgeInsets.all(20),
               child: Text(
-                  'Have you ever thought about how long it will take to fill and transmit papers about traffic accidents in Tunisia? The answer is  DAYS … and probably WEEKS\n\nThis app finds a solution for that.\n\nActually, the current way to fill a traffic accident report to insurance companies could last a long time, especially with the high number of car crashes that make the procedure heavy. Besides, there is a high error occurrence risk.\n\nHowever, the app cannot be used outside the Tunisian territory or for vehicles insured by foreign insurance companies. Also, the app cannot be used in case of human damage (even slight damage).\n\n'),
+                '''Have you ever thought about how long it will take to fill and transmit papers about traffic accidents in Tunisia? The answer is  DAYS … and probably WEEKS\n\nThis app finds a solution for that.\n\nActually, the current way to fill a traffic accident report to insurance companies could last a long time, especially with the high number of car crashes that make the procedure heavy. Besides, there is a high error occurrence risk.\n\nHowever, this app cannot be used outside the Tunisian territory or for vehicles insured by foreign insurance companies. Also, the app cannot be used in case of human damage (even slight damage).\n\nQuick Report allows users to accomplish the procedure safely and quickly by transmitting the cars, drivers, and crash information instantly and directly to the insurance company of each user. So the app is useful for both vehicle owners and insurance companies.''',
+                textAlign: TextAlign.justify,
+              ),
             ),
             SizedBox(height: 50),
             Text(
@@ -68,82 +71,152 @@ class AboutTheApp extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
-            Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text('Ahmed Belhaj:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 15),
-            Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text(
-                      'Software Engineering Student at Holberton School',
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: Text('Ahmed Belhaj:',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: Text(
+                        'Software Engineering Student at Holberton School',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 40),
-            Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text('Mohamed Chedli:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 15),
-            Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text(
-                      'Software Engineering Student at Holberton School',
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: Text('Mohamed Chedli:',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: Text(
+                        'Software Engineering Student at Holberton School',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 40),
-            Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text('Med Amin Bondi:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 15),
-            Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text(
-                      'Software Engineering Student at Holberton School',
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: Text('Med Amin Bondi:',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: Text(
+                        'Software Engineering Student at Holberton School',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 50),
-            // SizedBox(height: 30),
+            Text(
+              'Contacts:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      child: Text(
+                        '2152@holbertonschool.com',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      child: Text(
+                        '2276@holbertonschool.com',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      child: Text(
+                        '2212@holbertonschool.com',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 30),
           ],
         ),
       ),
