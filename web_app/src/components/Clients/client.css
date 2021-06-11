@@ -1,0 +1,32 @@
+
+.border{
+    border-color: #c3073f !important;
+    background-color: #1A1A1D;
+    color: white;
+}
+.matme{
+    color: white;
+    background-color: #1A1A1D;
+}
+.border-2{
+    background-color: white;
+    color: black;
+    border-color: #c3073f !important;
+
+
+}
+.nayek{
+    background-color:white !important;
+    color: #1A1A1D;
+}
+.nayek.active{
+    background-color: #c3073f !important;
+    border-color: #1A1A1D;
+    color: white;
+}
+.btn{
+    background-color: #c3073f  !important;
+    border-color: #1A1A1D !important;
+    color: white;
+}
+

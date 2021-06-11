@@ -7,11 +7,12 @@ function Navbar () {
 
   return (
     <section className="navbar">
-      <Link to="/" className="navbar-item">Home</Link>
-      <Link to="/clients" className="navbar-item">Client</Link>
-      <Link to="/reports" className="navbar-item">Reports</Link>
-      <Link to="/contact" className="navbar-item">Contact</Link>
-      <Link to="/about" className="navbar-item">About Us</Link>
+      <Link to="/" className="navbar-item nav-link">Home</Link>
+      <Link to="/clients" className="navbar-item nav-link">Client</Link>
+      <Link to="/reports" className="navbar-item nav-link">Reports</Link>
+      <Link to="/contact" className="navbar-item nav-link">Contact</Link>
+      <Link to="/about" className="navbar-item nav-link">About Us</Link>
+      <Link to="/logout"className="navbar-item nav-link"> logout</Link>
   </section>
   )
 
