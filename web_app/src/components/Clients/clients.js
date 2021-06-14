@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Header, Footer } from '../common';
+//import { Header, Footer } from '../common';
+import Menu from '../common/menu'
 import useToken from '../app/useToken';
 import './client.css';
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { Tab, Row, Col, Card, Container,Button } from 'react-bootstrap'
-
+import { Tab, Row, Col, Card } from 'react-bootstrap'
+//import {Button} from 'reactstrap';
 
 
 
@@ -45,54 +46,32 @@ export default function Clients() {
   for (const x in data) {
     arr.push(data[x])
   }
-let num = arr.length
+  let num = arr.length
   return (
-    <div>
-      <Header />
-
+    <div className="body-pd" >
+      <Menu />
       <h2 className='Title'>All Client <span class="badge bg gray-900 rounded-pill">{num}</span> </h2>
       <Tab.Container id="list-group-tabs-example" >
         <Row>
-          <Col sm={6}>
+          <Col sm={11}>
             {arr.map((user) => (<ListGroup className='nayek'>
 
-              <ListGroup.Item  className='nayek shadow-lg p-3 mb-2 bg-white rounded' action href={"#" + user.id}>
+              <ListGroup.Item className='nayek shadow-lg p-3 mb-2 bg-white rounded' action href={"#" + user.id}>
                 {user.email}
-              </ListGroup.Item>            </ListGroup>
+              </ListGroup.Item>
+            </ListGroup>
+
 
 
 
             ))}   </Col>
 
 
-          <Col sm={6}>
 
-            {arr.map((user) => (
-              <Tab.Content>
-                <Tab.Pane eventKey={"#" + user.id}>
-                  <Card  className="border shadow p-3 mb-5 rounded">
-                    <Card.Body className="matme">
-                      <Card.Title>{user.email}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">{user.id}</Card.Subtitle>
-                      <ListGroup.Item className="border-2">CIN : {user.CIN}</ListGroup.Item>
-                      <ListGroup.Item className="border-2">Name : {user.first_name}</ListGroup.Item>
-                      <ListGroup.Item className="border-2">Last Name : {user.last_name}</ListGroup.Item>
-                      <ListGroup.Item className="border-2">Phone : {user.phone}</ListGroup.Item>
-                      <ListGroup.Item className="border-2">Email : {user.email}</ListGroup.Item>
-                      <ListGroup.Item className="border-2">permit : {user.permit_id}</ListGroup.Item>
-                      <ListGroup.Item className="border-2">permit Validation : {user.permit_validation}</ListGroup.Item>
-                      <button type="button" className="btn btn-lg btn-block shadow-lg p-3 mb-2  rounded" size="lg"> Report</button>
-                    </Card.Body>
-                  </Card>
-
-                </Tab.Pane>
-              </Tab.Content>
-            ))}
-          </Col>
 
         </Row>
       </Tab.Container>
-      <Footer /></div>
+    </div>
   )
 };
 

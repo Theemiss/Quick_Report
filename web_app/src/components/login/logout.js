@@ -1,4 +1,4 @@
-import React ,{useEffect,useState} from 'react';
+import React ,{useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import useToken from '../app/useToken';
 
@@ -27,7 +27,6 @@ useEffect(() => {
     history.push('/login')
 
   }, []);
-  return(
-      <div>logged out</div>
+  return(0
   )
 }

@@ -1,32 +1,15 @@
 import React, { useState } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
+
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom"
 import PropTypes from 'prop-types';
+import { Alert } from "reactstrap";
+import './login.css'
 
 
 
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {" "}
-      {"Copyright © "}{" "}
-      <Link color="inherit" to='/'>
-        Quick Report{" "}
-      </Link>{" "}
-      {new Date().getFullYear()} {"."}{" "}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -67,37 +50,34 @@ export default function SignIn({ setToken }) {
   const [error, setError] = useState();
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({ 
+    const token = await loginUser({
       Email,
       Password
     });
-    
-    if ( token.Authonticate == undefined ){
+
+    if (token.Authonticate == undefined) {
       setError("Wrong Credential");
-      console.log(token.Authonticate )
+      console.log(token.Authonticate)
 
     }
-    if (token.Authonticate === false)
-       {
+    if (token.Authonticate === false) {
       setError("You are not admin");
-      console.log(token.Authonticate )
+      console.log(token.Authonticate)
     }
-    else{
+    else {
       setToken(token);
     }
-    
+
   }
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>{" "}
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>{" "}
-        <form className={classes.form} onSubmit={handleSubmit}>
-
+    < div className="limit" >
+    <div className="login-container">
+      <div className="bb-login">
+        <form className="bb-form validate-form" onSubmit={handleSubmit}>
+          <span className="bb-form-title p-b-26"> Welcome </span>
+          <span className="bb-form-title p-b-48"> <i class="mdi mdi-symfony"></i>
+          </span>
+          <div className="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
           <TextField
             variant="outlined"
             margin="normal"
@@ -107,9 +87,15 @@ export default function SignIn({ setToken }) {
             label="Email Address"
             name="email"
             autoComplete="email"
+            className='input100'
+
             onChange={e => setUserName(e.target.value)}
           />
-          <TextField
+          </div>
+          <div className="wrap-input100 validate-input" data-validate="Enter password">
+            <span className="btn-show-pass"> <i className="mdi mdi-eye show_password">
+            </i>
+            </span>  <TextField
             variant="outlined"
             margin="normal"
             required
@@ -118,29 +104,27 @@ export default function SignIn({ setToken }) {
             label="Password"
             type="password"
             id="password"
+            className='input100'
             autoComplete="current-password"
             onChange={e => setPassword(e.target.value)}
-          />
+          />  
+            </div>
+          {error && <Alert color="default"> {error}</Alert>}
 
-         {error && <div class="alert alert-warning" role="alert">
-          {error}
-          </div>} 
-          <Button
-            text="SignIn"
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >Sign In</Button>
-        </form>{" "}
-      </div>{" "}
-      <Box mt={8}>
-        <Copyright />
-      </Box>{" "}
-    </Container>
+
+          <div className="login-container-form-btn">
+            <div className="bb-login-form-btn">
+              <div className="bb-form-bgbtn"></div> <button className="bb-form-btn"> Login </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   );
 }
 SignIn.propTypes = {
   setToken: PropTypes.func.isRequired
 }
+
+  
