@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
 import 'package:more_pro_ui_qr/buttons/cardropdownbutton.dart';
+import 'package:more_pro_ui_qr/screens/form_screens/drivervsowner.dart';
 
 class FirstChoices extends StatefulWidget {
   @override
@@ -54,7 +55,7 @@ class _FirstChoicesState extends State<FirstChoices> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 80),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Form(
@@ -67,7 +68,7 @@ class _FirstChoicesState extends State<FirstChoices> {
                   ),
                 )),
               ),
-              SizedBox(height: 140),
+              SizedBox(height: 100),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
@@ -77,7 +78,10 @@ class _FirstChoicesState extends State<FirstChoices> {
                       height: 50,
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DriverVsOwner()));
+                        },
                         child: Text('Vehicle A'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.yellowAccent,
@@ -105,7 +109,7 @@ class _FirstChoicesState extends State<FirstChoices> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
