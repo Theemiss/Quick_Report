@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Header, Footer } from '../common';
+//import { Header, Footer } from '../common';
 import useToken from '../app/useToken';
 import './client.css';
-import { Link } from 'react-router-dom'
-import ListGroup from 'react-bootstrap/ListGroup'
-import { Tab, Row, Col, Card, Container, Button } from 'react-bootstrap'
+import Menu from '../common/menu'
+
+import {Table} from 'reactstrap';
 
 
 
@@ -12,14 +12,11 @@ export default function Reports() {
     const { token, setToken } = useToken();
     const [data, setData] = useState({});
     const Token = "Bearer ".concat(token)
-    const mystyle = {
-        BorderColor: 'blue'
-    };
+
     useEffect(() => {
 
         const fetchUserEmail = async () => {
-
-            const response = await fetch('http://102.37.113.211/api/company/reports', {
+            const response = await fetch('http://102.37.113.211/api/company/clients', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,29 +39,27 @@ export default function Reports() {
     }
 
     return (
-        <div>
-            <Header />
-
+        <div className="body-pd">
+<Menu></Menu>
             <h2 className='Title'>All Reports</h2>
 
-            <Tab.Container id="list-group-tabs-example" >
-                <Row>
-                    <Col sm={12}>
-                        {arr.map((user) => (<ListGroup className='nayek'>
-
-                            <Link to="/">  <ListGroup.Item className='nayek shadow-lg p-3 mb-2 bg-white rounded'>
-                                DATA
-                            </ListGroup.Item>    </Link>     </ListGroup>
-
-
-
-                        ))}   </Col>
-
-
-
-
-                </Row>
-            </Tab.Container>
-            <Footer /></div>
+            <Table responsive>
+    <thead>
+        <tr>
+            <th className="text-center">#</th>
+            <th>ID</th>
+            <th>CAR</th>
+            <th className="text-center">Driver</th>
+            <th className="text-right">User</th>
+            <th className="text-right">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+   
+ 
+   
+    </tbody>
+</Table>
+            </div>
     )
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import "./assets/css/nucleo-icons.css";
 import { Switch, Route,BrowserRouter} from 'react-router-dom';
 import Clients from './components/Clients/clients'
 import Reports from './components/Reports/reports'
