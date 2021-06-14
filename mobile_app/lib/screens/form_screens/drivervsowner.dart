@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
-// import 'package:more_pro_ui_qr/home_screens/generated_reports.dart';
 
-class MyProfile extends StatefulWidget {
-  const MyProfile({Key? key}) : super(key: key);
-
+class DriverVsOwner extends StatefulWidget {
   @override
-  _MyProfileState createState() => _MyProfileState();
+  _DriverVsOwnerState createState() => _DriverVsOwnerState();
 }
 
-class _MyProfileState extends State<MyProfile> {
+class _DriverVsOwnerState extends State<DriverVsOwner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       drawer: NavigationDrawerWidget(),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         toolbarHeight: 70,
-        title: Text('My Profile'),
+        title: Text('Filling the form'),
         centerTitle: true,
         actions: [
           IconButton(
