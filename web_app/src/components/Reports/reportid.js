@@ -21,7 +21,7 @@ export default function ReportId() {
   const Token = "Bearer ".concat(token)
   const { id } = useParams();
 
-  const url = 'http://102.37.113.211/api/company/rappro/' + id
+  const url = 'http://102.37.113.211/api/report/' + id
   useEffect(() => {
 
     const fetchUserInfo = async () => {
@@ -51,10 +51,11 @@ export default function ReportId() {
   return (
     <div className="body-pd" >
       <Menu />
-      <h3>Client N° :<h5>{data.id} </h5></h3>
-       adresse: {data.adresse} <br />
-        email :{data.email} <br />
-       Name : {data.first_name}  <br />
+      <h3>Rapport N° :<h5>{data.id} </h5></h3>
+      <h4>Driver Info</h4>
+       Driver: {data.driver_name} {data.driver_lastname} <br />
+        Permit :{data.driver_permit} <br />
+       Permit Valid : {data.driver_permit_valid}  <br />
        last name : {data.last_name} <br />
        permit id: {data.permit_id} <br />
        permit valid : {data.permit_validation} <br />

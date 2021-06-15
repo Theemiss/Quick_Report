@@ -54,13 +54,10 @@ export default function Clients() {
           <Col sm={11}>
             {arr.map((user) => (<ListGroup className='nayek'>
 
-            <Link to={{pathname: `user/${user.id}`}}> <ListGroup.Item className='nayek shadow-lg p-3 mb-2 bg-white rounded' action href={"#" + user.id}>
+            <Link to={{pathname: `user/${user.id}`}}> <ListGroup.Item className='nayek shadow-lg p-3 mb-2 bg-white rounded' >
                   {user.email}
                 </ListGroup.Item></Link>
             </ListGroup>
-
-
-
 
             ))}   </Col>
 
