@@ -51,7 +51,7 @@ export default function ReportId() {
   return (
     <div className="body-pd" >
       <Menu />
-      <h3 className="Title">Rapport N° : <small class="text-muted">{data.id} </small> </h3>
+      <h3 className="Title" id="1">Rapport N° : <small class="text-muted">{data.id} </small> </h3>
 
       <div class="container-fluid">
   <div className="row">
@@ -95,13 +95,12 @@ export default function ReportId() {
       
       <div class="mb-3">
         <form>
-  <label for="exampleFormControlTextarea1" class="form-label">Feedback</label>
+  <label for="exampleFormControlTextarea1" class="form-label Title">Feedback</label>
   <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
   <input class="btn btn-primary" type="submit" value="Submit"></input>
   </form>
 </div>
-
-
+    
     </div>
   )
 };

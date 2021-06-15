@@ -21,7 +21,7 @@ export default function Menu() {
                         </Link> <Link to="/clients" className="nav_link"> <i class='bx bx-user nav_icon'></i> 
                         <span class="nav_name">Users</span> </Link> <Link to="/reports" class="nav_link">
                              <i class='bx bx-message-square-detail nav_icon'></i> <span class="nav_name">Report</span>
-                              </Link>   <Link to="about" className="nav_link"> <i class='bx bx-user nav_icon'></i> 
+                              </Link>   <Link to="/about" className="nav_link"> <i class='bx bx-user nav_icon'></i> 
                         <span class="nav_name">About us</span> </Link>
                               </div>
                     </div> <Link to="/logout" className="nav_link"> <i className='bx bx-log-out nav_icon'></i> 

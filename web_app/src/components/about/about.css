@@ -20,3 +20,14 @@
 ul {
     list-style: none;
 }
+.fas,.fab{
+    color: black;
+    font-weight: 100;
+}
+ul div{
+    text-align: center;
+}
+.subtitle{
+    text-align: center;
+    padding: 10px;
+}
