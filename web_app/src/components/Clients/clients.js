@@ -3,12 +3,10 @@ import React, { useEffect, useState } from 'react';
 import Menu from '../common/menu'
 import useToken from '../app/useToken';
 import './client.css';
-//import { Link } from 'react-router-dom'
+import { Link,  useParams} from 'react-router-dom'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { Tab, Row, Col, Card } from 'react-bootstrap'
 //import {Button} from 'reactstrap';
-
-
 
 
 
@@ -56,9 +54,9 @@ export default function Clients() {
           <Col sm={11}>
             {arr.map((user) => (<ListGroup className='nayek'>
 
-              <ListGroup.Item className='nayek shadow-lg p-3 mb-2 bg-white rounded' action href={"#" + user.id}>
-                {user.email}
-              </ListGroup.Item>
+            <Link to={{pathname: `/${user.id}`}}> <ListGroup.Item className='nayek shadow-lg p-3 mb-2 bg-white rounded' action href={"#" + user.id}>
+                  {user.email}
+                </ListGroup.Item></Link>
             </ListGroup>
 
 

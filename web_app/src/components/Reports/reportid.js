@@ -21,7 +21,7 @@ export default function ClientsId() {
   const Token = "Bearer ".concat(token)
   const { id } = useParams();
 
-  const url = 'http://102.37.113.211/api/company/clients/' + id
+  const url = 'http://102.37.113.211/api/company/rappro/' + id
   useEffect(() => {
 
     const fetchUserInfo = async () => {
