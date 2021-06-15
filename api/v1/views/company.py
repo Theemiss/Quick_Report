@@ -1,4 +1,5 @@
 
+from api.v1.views.ClientRapport import Reportid
 from models.car import Car
 from models.comapny import Company
 from models.user import Users
@@ -230,6 +231,22 @@ class CompanyAllRepport(Resource):
             return make_response(jsonify(all_report), 200)
         else:
             return make_response(jsonify({"error": "Failed"}), 401)
+def builderSingle(rapportid,carid,clientid):
+    """
+    """
+    report_info = rapportid.to_dict()
+    del report_info['__class__']
+    del report_info['compnay_id']
+    Car_info = Car.query.filter_by(id=carid).first().to_dict()
+    del Car_info['id']
+    del Car_info['created_at']
+    del Car_info["updated_at"]
+    client_info = Users.query.filter_by(id=clientid).first().to_dict()
+    del client_info['id']
+    del client_info['created_at']
+    del client_info["updated_at"]
+    data = {**report_info,**Car_info,**client_info}
+    return data
 
 
 class CompanySingleRapport(Resource):
@@ -263,7 +280,8 @@ class CompanySingleRapport(Resource):
         if admin.authenticated == True:
             report = Report.query.filter_by(id=id).first()
             if report is not None:
-                return make_response(jsonify(report.to_dict()), 200)
+                data = builderSingle(report,report.client_id,report.car_id)
+                return make_response(jsonify(data), 200)
             else:
                 return make_response(jsonify({"error": "Report not found"}), 401)
         else:
