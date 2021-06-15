@@ -1,8 +1,7 @@
 
 .border{
     border-color: #c3073f !important;
-    background-color: #1A1A1D;
-    color: white;
+    color: black;
 }
 .matme{
     color: white;
@@ -30,3 +29,20 @@
     color: white;
 }
 
+.col{
+    margin: 10px !important;
+    padding: 10px;
+}
+ul{
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+    font-size: 20px;
+}
+ul li{
+    padding: 2px;
+}
+.sub-title{
+    color: #c3073f;
+    font-size: xx-large;
+}

@@ -49,18 +49,15 @@ export default function Clients() {
     <div className="body-pd" >
       <Menu />
       <h2 className='Title'>All Client <span class="badge bg gray-900 rounded-pill">{num}</span> </h2>
-      <Tab.Container id="list-group-tabs-example" >
+      <Tab.Container id="idlist-group-tabs-example" >
         <Row>
           <Col sm={11}>
             {arr.map((user) => (<ListGroup className='nayek'>
 
-            <Link to={{pathname: `/${user.id}`}}> <ListGroup.Item className='nayek shadow-lg p-3 mb-2 bg-white rounded' action href={"#" + user.id}>
+            <Link to={{pathname: `user/${user.id}`}}> <ListGroup.Item className='nayek shadow-lg p-3 mb-2 bg-white rounded' >
                   {user.email}
                 </ListGroup.Item></Link>
             </ListGroup>
-
-
-
 
             ))}   </Col>
 
