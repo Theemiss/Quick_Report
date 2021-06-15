@@ -11,7 +11,7 @@ class GeneratedReports extends StatelessWidget {
       itemBuilder: (context, index) {
         return Card(
           child: Padding(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.all(28),
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.start,r
               children: [
