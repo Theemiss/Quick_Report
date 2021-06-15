@@ -70,7 +70,7 @@ pytestdebug.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-
+*.py.save
 # Flask stuff:
 instance/
 
@@ -124,7 +124,8 @@ ENV/
 env.bak/
 venv.bak/
 pythonenv*
-
+lib/
+bin/
 # Spyder project settings
 .spyderproject
 .spyproject
