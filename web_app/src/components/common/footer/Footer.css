@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #1A1A1D;
+  background-color: #1a1a1d;
   display: flex;
   flex-direction: column;
   font-weight: bold;
@@ -21,33 +21,40 @@
   height: 25px;
 }
 
-.footer-info  {
+.footer-info {
   display: flex;
   justify-content: center;
 }
 
-.footer-info-left, .footer-info-center, .footer-info-right {
+.footer-info-left,
+.footer-info-center,
+.footer-info-right {
   font-size: x-small;
-  color:  white;
+  color: white;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
   width: 30%;
 }
 
-.footer-info__name, .footer-info__email, .footer-info__number {
+.footer-info__name,
+.footer-info__email,
+.footer-info__number {
   margin-bottom: 10px;
 }
 
-.footer-info__name, .footer-info__returns {
+.footer-info__name,
+.footer-info__returns {
   text-align: start;
 }
 
-.footer-info__email, .footer-info__terms {
+.footer-info__email,
+.footer-info__terms {
   text-align: center;
 }
 
-.footer-info__number, .footer-info__contact {
+.footer-info__number,
+.footer-info__contact {
   text-align: end;
 }
 
@@ -61,7 +68,7 @@
   flex-grow: 1;
   border: none;
   height: 1px;
-  background-color: #C3073F;
+  background-color: #c3073f;
   width: 100%;
 }
 

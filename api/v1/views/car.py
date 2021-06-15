@@ -28,7 +28,7 @@ class NewInsurance(Resource):
         responseClass=Insurance.__name__,
         nickname=' new Insurance',
         parameters=[{
-            "name" : "valid",
+            "name": "valid",
             "description": "date",
             "required": True,
             "allowMultiple": False,
@@ -37,20 +37,20 @@ class NewInsurance(Resource):
         }],
         responseMessages=[
             {
-              "code": 201,
-              "message": "new Insurance"
+                "code": 201,
+                "message": "new Insurance"
             },
             {
                 "code": 400,
-              "message": "Not a JSON"
+                "message": "Not a JSON"
             },
             {
                 "code": 401,
-              "message": "missing date"
+                "message": "missing date"
             }
 
-          ]
-        )
+        ]
+    )
     def post(self):
         """
         Create new Insurance
@@ -67,37 +67,37 @@ class NewInsurance(Resource):
 
 
 class NewCar(Resource):
-   
+
     @swagger.operation(
         notes='New Car ',
         responseClass=Car.__name__,
         nickname='car  ',
         parameters=[{
-            "name" : "InsuranceId",
+            "name": "InsuranceId",
             "description": "id of Insurance",
             "required": True,
             "allowMultiple": False,
             "dataType": "String",
             "paramType": "body"
         },
-        {
-            "name" : "Type",
+            {
+            "name": "Type",
             "description": "Type of car",
             "required": True,
             "allowMultiple": False,
             "dataType": "String",
             "paramType": "body"
         },
-        {
-            "name" : "Mark",
+            {
+            "name": "Mark",
             "description": "Mark of  car",
             "required": True,
             "allowMultiple": False,
             "dataType": "String",
             "paramType": "body"
         },
-        {
-            "name" : "CIN",
+            {
+            "name": "CIN",
             "description": "CIN of the owner of the car",
             "required": True,
             "allowMultiple": False,
@@ -106,24 +106,24 @@ class NewCar(Resource):
         }],
         responseMessages=[
             {
-              "code": 201,
-              "message": "new Car info"
+                "code": 201,
+                "message": "new Car info"
             },
             {
                 "code": 400,
-              "message": "Not a JSON"
+                "message": "Not a JSON"
             },
             {
                 "code": 401,
-              "message": "Not a valid insurance id"
+                "message": "Not a valid insurance id"
             }
 
-          ]
-        )
+        ]
+    )
     def post(self):
         """
         Create new Car
-        """   
+        """
         data = car_helper.parse_args()
         inID = Insurance.query.filter_by(id=data['InsuranceId']).first()
         if inID is None:
@@ -144,7 +144,7 @@ class GetUserCar(Resource):
         responseClass=Insurance.__name__,
         nickname=' car ',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
@@ -153,13 +153,13 @@ class GetUserCar(Resource):
         }],
         responseMessages=[
             {
-              "code": 200,
-              "message": "all car belong to current logged in user"
+                "code": 200,
+                "message": "all car belong to current logged in user"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     @jwt_required()
     def get(self):
         """
@@ -183,7 +183,7 @@ class GetClientCarId(Resource):
         responseClass=Insurance.__name__,
         nickname='  car',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
@@ -192,17 +192,17 @@ class GetClientCarId(Resource):
         }],
         responseMessages=[
             {
-              "code": 200,
-              "message": "car id info"
+                "code": 200,
+                "message": "car id info"
             },
-                 {
-              "code": 403,
-              "message": "Not Found"
+            {
+                "code": 403,
+                "message": "Not Found"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     @jwt_required()
     def get(self, id):
         """

@@ -23,7 +23,6 @@ migrate = Migrate(app, db)
 
 #app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:55664730@localhost:5432/quick_report'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://jztcmnavqvekbf:4e05e1665e4573ddfca5cba53c4788910d5ff6ac306b8a696b15aaa6914c146c@ec2-54-220-170-192.eu-west-1.compute.amazonaws.com:5432/dc3fefsncq4lvc'
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -85,12 +84,12 @@ from api.v1.views import company_route_all
 api.add_resource(company_route_all, "/api/hidden")
 from api.v1.views import Login, sign_up, Logout, TokenRefresh, ClientUserForm, CompanyAllClient, AdminUserID, CompanyAllRepport,CompanySingleRapport
 
-# Authontication
+# Authentication
 api.add_resource(sign_up, "/api/signup")  # signup
 api.add_resource(Login, "/api/login")  # Login
 api.add_resource(Logout, "/api/logout")  # Logout
 api.add_resource(TokenRefresh, "/api/refresh")  # Token refrecher
-# Get Current Logged Client or update user inforamtion
+# Get Current Logged Client or update user information
 api.add_resource(ClientUserForm, "/api/client")
 # Company Action Web
 # Get All Client that Belong to this Comapny
@@ -102,7 +101,7 @@ api.add_resource(CompanyAllRepport, '/api/company/reports')
 api.add_resource(CompanySingleRapport,'/api/report/<id>')
 from api.v1.views import NewCar, GetUserCar, NewInsurance, GetClientCarId
 
-# Cars and insurrance Endpoint
+# Cars and insurance Endpoint
 api.add_resource(NewInsurance, '/api/insurance/new')  # Create new insurance
 api.add_resource(NewCar, '/api/car/new')  # Create new car
 # All Car that belong to the current client

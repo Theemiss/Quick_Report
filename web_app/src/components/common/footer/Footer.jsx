@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import './Footer.css';
+import "./Footer.css";
 
-function Footer () {
-
+function Footer() {
   return (
     <section className="footer">
       <hr className="footer-seperator" />
@@ -12,14 +11,12 @@ function Footer () {
       </section>
       <section className="footer-info">
         <section className="footer-info-left">
-          <section className="footer-info__name">
-              Holberton
-          </section>
+          <section className="footer-info__name">Holberton</section>
           <section className="footer-info__returns">
             Returns Policy
             <br />
             Delivery
-          </section>        
+          </section>
         </section>
         <section className="footer-info-center">
           <section className="footer-info__email">
@@ -32,11 +29,9 @@ function Footer () {
           </section>
         </section>
         <section className="footer-info-right">
-          <section className="footer-info__number">
-            
-          </section>
+          <section className="footer-info__number"></section>
           <section className="footer-info__contact">
-            hi 
+            hi
             <br />
             Contact Us
           </section>
@@ -44,8 +39,7 @@ function Footer () {
       </section>
       <hr className="footer-seperator" />
     </section>
-  )
-
+  );
 }
 
 export default Footer;

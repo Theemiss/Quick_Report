@@ -12,7 +12,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 import pdfkit
 from models.RapportMatcher import RapportCar
 from flask_restful_swagger import swagger
-from flask_wkhtmltopdf import Wkhtmltopdf
+#from flask_wkhtmltopdf import Wkhtmltopdf
 
 UPLOAD_DIRECTORY = "media"
 if not os.path.exists(UPLOAD_DIRECTORY):
@@ -450,9 +450,10 @@ class NewFeedBack(Resource):
             return make_response(jsonify({'error': "Wrong Information"}), 401)
         else:
             new_feedback = Feedback(
-                desscreption=data['Descreption'], rapport=data['Report'])
+                description=data['Descreption'], rapport=data['Report'])
             new_feedback.save_to_db()
         make_response(jsonify(new_feedback.to_dict()), 201)
+
 
 class MatcherA(Resource):
     @jwt_required()
@@ -483,5 +484,3 @@ class MatcherB(Resource):
         report.CAR_B = data['car_b']
         report.save_to_db()
         return make_response(jsonify({"id": report.id}), 200)
-
-

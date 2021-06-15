@@ -336,7 +336,7 @@ class ClientUserForm(Resource):
         responseMessages=[
             {
               "code": 202,
-              "message": "modefied"
+              "message": "modified"
             }
           ]
         )

@@ -1,37 +1,37 @@
 .border {
-    border-color: #c3073f !important;
-    color: black;
+  border-color: #c3073f !important;
+  color: black;
 }
 
 .matme {
-    color: white;
-    background-color: #1A1A1D;
+  color: white;
+  background-color: #1a1a1d;
 }
 
 .border-2 {
-    background-color: white;
-    color: black;
-    border-color: #c3073f !important;
+  background-color: white;
+  color: black;
+  border-color: #c3073f !important;
 }
 
 .nayek {
-    background-color: white !important;
-    color: #1A1A1D;
+  background-color: white !important;
+  color: #1a1a1d;
 }
 
 .nayek.active {
-    background-color: #c3073f !important;
-    border-color: #1A1A1D;
-    color: white;
+  background-color: #c3073f !important;
+  border-color: #1a1a1d;
+  color: white;
 }
 
 .btn {
-    background-color: #c3073f !important;
-    border-color: #1A1A1D !important;
-    color: white;
+  background-color: #c3073f !important;
+  border-color: #1a1a1d !important;
+  color: white;
 }
 
 .card {
-    margin: 100px;
-    padding: 100px;
+  margin: 100px;
+  padding: 100px;
 }

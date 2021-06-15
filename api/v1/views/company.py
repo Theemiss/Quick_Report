@@ -73,12 +73,12 @@ class company_route_all(Resource):
         Get All company
         """
         all = Company.query.all()
-        companys = {}
+        companies = {}
         for x in all:
             data = x.to_dict()
             key = key = data['__class__'] + '.' + data['id']
-            companys[key] = data
-        return make_response(jsonify(companys), 200)
+            companies[key] = data
+        return make_response(jsonify(companies), 200)
 
 
 class CompanyAllClient(Resource):
@@ -91,7 +91,7 @@ class CompanyAllClient(Resource):
         nickname='all Client belong to company',
         parameters=[{
             "name": "token",
-            "description": "autho",
+            "description": "auth",
             "required": True,
             "allowMultiple": False,
             "dataType": "string",
@@ -231,7 +231,9 @@ class CompanyAllRepport(Resource):
             return make_response(jsonify(all_report), 200)
         else:
             return make_response(jsonify({"error": "Failed"}), 401)
-def builderSingle(rapportid,carid,clientid):
+
+
+def builderSingle(rapportid, carid, clientid):
     """
     """
     report_info = rapportid.to_dict()
@@ -245,7 +247,7 @@ def builderSingle(rapportid,carid,clientid):
     del client_info['id']
     del client_info['created_at']
     del client_info["updated_at"]
-    data = {**report_info,**Car_info,**client_info}
+    data = {**report_info, **Car_info, **client_info}
     return data
 
 
@@ -261,17 +263,17 @@ class CompanySingleRapport(Resource):
               "allowMultiple": False,
               "dataType": "string",
               "paramType": "header"
-            }],
+        }],
         responseMessages=[
             {
-                  "code": 200,
-                  "message": "all report"
-              },
+                "code": 200,
+                "message": "all report"
+            },
             {
-                  "code": 400,
-                  "message": "you are not admin"
-              }
-            ]
+                "code": 400,
+                "message": "you are not admin"
+            }
+        ]
     )
     @jwt_required()
     def get(self, id):
@@ -280,7 +282,7 @@ class CompanySingleRapport(Resource):
         if admin.authenticated == True:
             report = Report.query.filter_by(id=id).first()
             if report is not None:
-                data = builderSingle(report,report.car_id,report.client_id)
+                data = builderSingle(report, report.car_id, report.client_id)
                 return make_response(jsonify(data), 200)
             else:
                 return make_response(jsonify({"error": "Report not found"}), 401)

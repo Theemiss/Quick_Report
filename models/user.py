@@ -2,7 +2,6 @@ from api.v1.app import db
 from models.base import BaseModel
 from passlib.apps import custom_app_context as pwd_context
 from uuid import uuid4
-# creating user with privllage
 
 
 class Users(db.Model, BaseModel):
@@ -14,7 +13,7 @@ class Users(db.Model, BaseModel):
     first_name = db.Column(db.String(30))
     last_name = db.Column(db.String(30))
     phone = db.Column(db.String(30))
-    adresse = db.Column(db.String(30))
+    address = db.Column(db.String(30))
     permit_id = db.Column(db.String(30), unique=True)
     permit_validation = db.Column(db.DateTime)
     comany_token = db.Column(
@@ -33,7 +32,7 @@ class Users(db.Model, BaseModel):
         self.car_id = car_id
         self.permit_id = p_id
         self.permit_validation = p_v
-        self.adresse = addr
+        self.address = addr
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)

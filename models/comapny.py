@@ -8,7 +8,7 @@ class Company(db.Model, BaseModel):
     name = db.Column(db.String(30), nullable=False)
     tokens = db.relationship('Users', backref='Company', lazy=True)
     raports = db.relationship('Report', backref='Company', lazy=True)
-    
+
     def __init__(self, name):
         super().__init__()
         self.id = str(uuid4())
