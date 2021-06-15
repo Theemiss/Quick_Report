@@ -234,6 +234,7 @@ class CompanyAllRepport(Resource):
 def builderSingle(rapportid,carid,clientid):
     """
     """
+    print(carid)
     report_info = rapportid.to_dict()
     del report_info['__class__']
     del report_info['compnay_id']
