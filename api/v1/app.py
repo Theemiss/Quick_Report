@@ -9,7 +9,6 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful_swagger import swagger
 from dotenv import dotenv_values
-from flask_apispec.extension import FlaskApiSpec
 from flask_wkhtmltopdf import Wkhtmltopdf 
 
 config = dotenv_values('.env')

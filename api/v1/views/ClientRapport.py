@@ -25,7 +25,7 @@ class AllMedia(Resource):
         responseClass=Report.__name__,
         nickname='  files',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
@@ -34,13 +34,13 @@ class AllMedia(Resource):
         }],
         responseMessages=[
             {
-              "code": 200,
-              "message": "all file in server"
+                "code": 200,
+                "message": "all file in server"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     def get(self):
         """Endpoint to list files on the server."""
         files = []
@@ -57,7 +57,7 @@ class Media(Resource):
         responseClass=Report.__name__,
         nickname='  get a file',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
@@ -66,25 +66,25 @@ class Media(Resource):
         }],
         responseMessages=[
             {
-              "code": 200,
-              "message": "file"
+                "code": 200,
+                "message": "file"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     def get(self, path):
         """
-            get file 
+            get file
         """
         return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
-        
+
     @swagger.operation(
         notes='send  file ',
         responseClass=Report.__name__,
         nickname='  send a file',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
@@ -93,13 +93,13 @@ class Media(Resource):
         }],
         responseMessages=[
             {
-              "code": 200,
-              "message": "transfered"
+                "code": 200,
+                "message": "transfered"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     def post(self, filename):
         """
             send a file
@@ -145,53 +145,53 @@ class ReportNew(Resource):
         responseClass=Report.__name__,
         nickname='  new  a repport',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
             "dataType": "string",
             "paramType": "header"
-        },{
-            "name" : "DriverName",
+        }, {
+            "name": "DriverName",
             "description": "DriverName",
             "required": True,
             "allowMultiple": False,
             "dataType": "string",
             "paramType": "body"
         },
-        {
-            "name" : "CarId",
+            {
+            "name": "CarId",
             "description": "CarId",
             "required": True,
             "allowMultiple": False,
             "dataType": "string",
             "paramType": "body"
-        },{
-            "name" : "DriverLastName",
+        }, {
+            "name": "DriverLastName",
             "description": " DriverLastName",
             "required": True,
             "allowMultiple": False,
             "dataType": "string",
             "paramType": "body"
         },
-        {
-            "name" : "DriverAdresse",
+            {
+            "name": "DriverAdresse",
             "description": "DriverAdresse",
             "required": True,
             "allowMultiple": False,
             "dataType": "string",
             "paramType": "body"
         },
-        {
-            "name" : "DriverPermit",
+            {
+            "name": "DriverPermit",
             "description": "DriverPermit",
             "required": True,
             "allowMultiple": False,
             "dataType": "string",
             "paramType": "body"
         },
-        {
-            "name" : "DriverPermitValidation",
+            {
+            "name": "DriverPermitValidation",
             "description": "DriverPermitValidation",
             "required": True,
             "allowMultiple": False,
@@ -201,23 +201,23 @@ class ReportNew(Resource):
         ],
         responseMessages=[
             {
-              "code": 200,
-              "message": "rapport created info"
+                "code": 200,
+                "message": "rapport created info"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     @jwt_required()
     def post(self):
         """
-            Create new repport 
+            Create new repport
         """
         client_id = get_jwt_identity()
         data = rapport.parse_args()
         user = Users.query.filter_by(id=client_id).first()
         rp = Report(driver=data['DriverName'], client=client_id,
-                    car=data['CarId'], company_id=user.comany_token, l_name=data['DriverLastName'], addr=data['DriverAdresse'], per=data['DriverPermit'], per_v=datetime.utcnow())#data['DriverPermitValidation']
+                    car=data['CarId'], company_id=user.comany_token, l_name=data['DriverLastName'], addr=data['DriverAdresse'], per=data['DriverPermit'], per_v=datetime.utcnow())  # data['DriverPermitValidation']
         rp.save_to_db()
         return make_response(jsonify(rp.to_dict()), 201)
 
@@ -226,7 +226,7 @@ class ReportNew(Resource):
         responseClass=Report.__name__,
         nickname='all report',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
@@ -235,13 +235,13 @@ class ReportNew(Resource):
         }],
         responseMessages=[
             {
-              "code": 200,
-              "message": "ALL report info"
+                "code": 200,
+                "message": "ALL report info"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     @jwt_required()
     def get(self):
         """
@@ -278,7 +278,7 @@ class Reportid(Resource):
         responseClass=Report.__name__,
         nickname=' report',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
@@ -287,17 +287,17 @@ class Reportid(Resource):
         }],
         responseMessages=[
             {
-              "code": 200,
-              "message": "one  report info"
+                "code": 200,
+                "message": "one  report info"
             },
             {
                 "code": 400,
-              "message": "not found"
+                "message": "not found"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     @jwt_required()
     def get(self, id):
         """
@@ -310,7 +310,8 @@ class Reportid(Resource):
             data = repport_builder(report, report.client_id, report.car_id)
             return make_response(jsonify(data), 200)
         else:
-            return make_response(jsonify({}),200)
+            return make_response(jsonify({}), 200)
+
 
 class ReportPdf(Resource):
     @swagger.operation(
@@ -318,7 +319,7 @@ class ReportPdf(Resource):
         responseClass=Report.__name__,
         nickname=' report',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
@@ -327,17 +328,17 @@ class ReportPdf(Resource):
         }],
         responseMessages=[
             {
-              "code": 200,
-              "message": "pdf file"
+                "code": 200,
+                "message": "pdf file"
             },
             {
                 "code": 400,
-              "message": "invalid"
+                "message": "invalid"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     def get(self, a):
         """
             Generate pdf file for the rapport
@@ -348,45 +349,44 @@ class ReportPdf(Resource):
             CarB = Report.query.filter_by(id=rapportmatcher.CAR_B).first()
             CompanyA = Company.query.filter_by(id=CarA.compnay_id).first()
             CompanyB = Company.query.filter_by(id=CarB.compnay_id).first()
-            
-            
+
             ClientA = Users.query.filter_by(id=CarA.client_id).first()
             ClientB = Users.query.filter_by(id=CarB.client_id).first()
             ClientCarA = Car.query.filter_by(id=CarA.car_id).first()
             ClientCarB = Car.query.filter_by(id=CarB.car_id).first()
             Client1 = {**ClientA.to_dict(), **ClientCarA.to_dict(),
                        **CompanyA.to_dict()}
-            
+
             del Client1['__class__']
             del Client1['updated_at']
             del Client1['created_at']
-            
+
             del Client1['insurred']
             del Client1['comany_token']
             del Client1['authenticated']
             Client2 = {**ClientB.to_dict(), **ClientCarB.to_dict(),
                        **CompanyB.to_dict()}
-            
+
             del Client2['__class__']
             del Client2['updated_at']
             del Client2['created_at']
             del Client2['insurred']
             del Client2['comany_token']
             del Client2['authenticated']
-            
+
             render = render_template("constat.html", ClientA=Client1, ClientB=Client2,
                                      DriverA=CarA.driver_name, DriverB=CarB.driver_name)
             pdf = pdfkit.from_string(render)
             print("response")
             response = make_response(pdf)
-            
+
             response.headers['Content-Type'] = 'application/pdf'
             response.headers['Content-Disposition'] = 'attachent; filename={}.pdf'.format(
                 a)
-            
+
             return response
         except:
-            return make_response(jsonify({"error":"failed"}),402)
+            return make_response(jsonify({"error": "failed"}), 402)
 
 
 feedback = reqparse.RequestParser()
@@ -402,21 +402,21 @@ class NewFeedBack(Resource):
         responseClass=Feedback.__name__,
         nickname=' Feedback',
         parameters=[{
-            "name" : "Token",
+            "name": "Token",
             "description": "jwt token",
             "required": True,
             "allowMultiple": False,
             "dataType": "string",
             "paramType": "header"
-        },{
-            "name" : "Report",
+        }, {
+            "name": "Report",
             "description": "report id",
             "required": True,
             "allowMultiple": False,
             "dataType": "string",
             "paramType": "body"
-        },{
-            "name" : "Descreption",
+        }, {
+            "name": "Descreption",
             "description": "Descreption ",
             "required": True,
             "allowMultiple": False,
@@ -426,21 +426,21 @@ class NewFeedBack(Resource):
         ],
         responseMessages=[
             {
-              "code": 200,
-              "message": "new feedback "
+                "code": 200,
+                "message": "new feedback "
             },
             {
                 "code": 400,
-              "message": "invalid"
+                "message": "invalid"
             }
-            
 
-          ]
-        )
+
+        ]
+    )
     @jwt_required()
     def post(self):
         """
-            Create new feedback by admin 
+            Create new feedback by admin
         """
         admin_id = get_jwt_identity()
         admin = Users.query.filter_by(id=admin_id).first()
@@ -454,36 +454,34 @@ class NewFeedBack(Resource):
             new_feedback.save_to_db()
         make_response(jsonify(new_feedback.to_dict()), 201)
 
+class MatcherA(Resource):
     @jwt_required()
     def post(self):
         user = get_jwt_identity()
         Matcher = reqparse.RequestParser()
-        Matcher.add_argument('car_a', help='This field cannot be blank', required=True)
+        Matcher.add_argument(
+            'car_a', help='This field cannot be blank', required=True)
         data = Matcher.parse_args()
         new = RapportCar(a=data['car_a'])
         new.save_to_db()
-        return make_response(jsonify({"id": new.id}),200)
+        return make_response(jsonify({"id": new.id}), 200)
 
-class  MatcherB(Resource):
+
+class MatcherB(Resource):
     """
     """
     @jwt_required()
     def post(self):
         user = get_jwt_identity()
         Matcher = reqparse.RequestParser()
-        Matcher.add_argument('car_b', help='This field cannot be blank', required=True)
-        Matcher.add_argument('id', help='This field cannot be blank', required=True)
+        Matcher.add_argument(
+            'car_b', help='This field cannot be blank', required=True)
+        Matcher.add_argument(
+            'id', help='This field cannot be blank', required=True)
         data = Matcher.parse_args()
         report = RapportCar.query.filter_by(id=data['id']).first()
         report.CAR_B = data['car_b']
         report.save_to_db()
-        return make_response(jsonify({"id": report.id}),200)
+        return make_response(jsonify({"id": report.id}), 200)
 
-    @jwt_required()
-        id = get_jwt_identity()
-        if feedback is not None:
-            data = feedback.to_dict()
-            return make_response(jsonify({data}),200)
-        else:
-            return make_response(jsonify({}),200)
 
