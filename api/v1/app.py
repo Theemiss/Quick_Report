@@ -11,6 +11,7 @@ from flask_restful_swagger import swagger
 from dotenv import dotenv_values
 from flask_apispec.extension import FlaskApiSpec
 from flask_wkhtmltopdf import Wkhtmltopdf 
+
 config = dotenv_values('.env')
 app = Flask(__name__)
 wkhtmltopdf = Wkhtmltopdf(app)

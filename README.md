@@ -1,12 +1,17 @@
 # Quick Report
 
 ## API 
-* api 
+* api (Python/Flask)
 * models
 * tests
 
 ## Web 
-* Web Directory
+* Web Directory (React js)
+
 
 ## Mobile
-* Mobile Directory
+* Mobile Directory (Dart/Flutter)
+
+# Cloud 
+* Azure <http://quickreport.southafricanorth.cloudapp.azure.com/>
+* Documentation API <http://102.37.113.211/api/spec.html#!/spec>
