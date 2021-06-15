@@ -14,7 +14,9 @@ class ReportManager extends StatefulWidget {
 }
 
 class _ReportManagerState extends State<ReportManager> {
+  late var futureReports;
   Future<List<Report>> fetchReports() async {
+    List<Report> reports = [];
     var url = Uri.parse('http://102.37.113.211/api/client/report');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     dynamic to = prefs.getString('jwt');
@@ -25,18 +27,21 @@ class _ReportManagerState extends State<ReportManager> {
     print(response.statusCode);
     if (response.statusCode == 200) {
       print(jsonDecode(response.body));
-      for (var item in jsonDecode(response.body)) {
-        print(item);
-      }
+      Map<String, dynamic> reportsMap = jsonDecode(response.body);
+      reportsMap.forEach((key, value) {
+        reports.add(Report.fromJson(key, value));
+      });
     }
-    return [];
+    print(reports);
+    return reports.toList();
+    // return Report.fromJson(jsonDecode(response.body));
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    var futureReports = fetchReports();
+
+    futureReports = fetchReports();
   }
 
   @override
@@ -73,11 +78,7 @@ class _ReportManagerState extends State<ReportManager> {
           ),
         ),
       ),
-      body: GeneratedReports([
-        Report("azerazerazerazer"),
-        Report("earaerazrazeraezr"),
-        Report("earaerazrazeraezr"),
-      ]),
+      body: GeneratedReports(futureReports),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.of(context)
