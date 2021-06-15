@@ -7,6 +7,7 @@ import 'package:more_pro_ui_qr/home_screens/generated_reports.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'form_screens/caranddriverchoice.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class ReportManager extends StatefulWidget {
   @override
@@ -14,34 +15,50 @@ class ReportManager extends StatefulWidget {
 }
 
 class _ReportManagerState extends State<ReportManager> {
-  late var futureReports;
-  Future<List<Report>> fetchReports() async {
-    List<Report> reports = [];
-    var url = Uri.parse('http://102.37.113.211/api/client/report');
+  List reports = [];
+
+  fetchReports() async {
+    var url = 'http://102.37.113.211/api/client/report';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     dynamic to = prefs.getString('jwt');
     print(to);
     String? token = 'Bearer ' + to;
-    final response = await http.get(url,
-        headers: {'Content-Type': 'application/json', 'Authorization': token});
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(jsonDecode(response.body));
-      Map<String, dynamic> reportsMap = jsonDecode(response.body);
-      reportsMap.forEach((key, value) {
-        reports.add(Report.fromJson(key, value));
-      });
-    }
-    print(reports);
-    return reports.toList();
+    var response = await Dio().get(
+      url,
+      options: Options(headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      }),
+    );
+    return response.data;
+    //print(response.statusCode);
+    //if (response.statusCode == 200) {
+    //print(jsonDecode(response.body));
+
+    //Map<String, dynamic> reportsMap = jsonDecode(response.body);
+    //reportsMap.forEach((key, value) {
+    //reports.add(Report.fromJson(key, value));
+    //});
+
+    //print(reports);
+    //return reports.toList();
     // return Report.fromJson(jsonDecode(response.body));
+  }
+
+  List mapToList(Map data) {
+    List list = [];
+    data.forEach((a, b) => list.add(b));
+    return list;
   }
 
   @override
   void initState() {
+    fetchReports().then((data) {
+      setState(() {
+        reports = mapToList(data);
+      });
+    });
     super.initState();
-
-    futureReports = fetchReports();
   }
 
   @override
@@ -78,7 +95,7 @@ class _ReportManagerState extends State<ReportManager> {
           ),
         ),
       ),
-      body: GeneratedReports(futureReports),
+      body: GeneratedReports(reports),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.of(context)
