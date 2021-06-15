@@ -9,7 +9,9 @@ class FirstSignUpPage extends StatefulWidget {
 class _FirstSignUpPageState extends State<FirstSignUpPage> {
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     String? email, password, idCard, insuranceCompany;
+    // ignore: unused_local_variable
     bool isLogged = false;
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();

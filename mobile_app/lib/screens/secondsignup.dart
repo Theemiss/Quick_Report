@@ -8,11 +8,17 @@ class SecondSignUpPage extends StatefulWidget {
 class _SecondSignUpPageState extends State<SecondSignUpPage> {
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     String? firstName,
+        // ignore: unused_local_variable
         lastName,
+        // ignore: unused_local_variable
         userAdress,
+        // ignore: unused_local_variable
         phoneNumber,
+        // ignore: unused_local_variable
         driverLicense,
+        // ignore: unused_local_variable
         licenseDate;
     TextEditingController _firstNameController = TextEditingController();
     TextEditingController _lastNameController = TextEditingController();

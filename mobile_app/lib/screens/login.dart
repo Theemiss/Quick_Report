@@ -11,7 +11,9 @@ class MyLogInPage extends StatefulWidget {
 class _MyLogInPageState extends State<MyLogInPage> {
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     String? email, password;
+    // ignore: unused_local_variable
     bool isLoading = false;
     TextEditingController _emailController = new TextEditingController();
     TextEditingController _passwordController = new TextEditingController();
@@ -129,6 +131,7 @@ savePref(String jwt) async {
   preferences.setString("jwt", jwt);
   preferences.setBool("isLogged", true);
 
+  // ignore: deprecated_member_use
   preferences.commit();
 }
 
@@ -138,10 +141,11 @@ login(email, password, BuildContext context) async {
   final response = await http.post(url,
       headers: {'Content-Type': 'application/json'}, body: jsonEncode(user));
   if (response.statusCode == 200) {
-    Map Mapresposne = jsonDecode(response.body);
+    Map mapresposne = jsonDecode(response.body);
     //print(Mapresposne);
-    savePref(Mapresposne['token']);
+    savePref(mapresposne['token']);
     WidgetsFlutterBinding.ensureInitialized();
+    // ignore: unused_local_variable
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Navigator.pushNamed(context, '/fourthPage');
     //print(prefs.get('jwt'));

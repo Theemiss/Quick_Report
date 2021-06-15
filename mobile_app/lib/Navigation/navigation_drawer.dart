@@ -104,6 +104,7 @@ class NavigationDrawerWidget extends StatelessWidget {
     if (response.statusCode == 202) {
       prefs.remove('jwt');
       prefs.setBool('isLogged', false);
+      // ignore: deprecated_member_use
       prefs.commit();
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => MyLogInPage()));

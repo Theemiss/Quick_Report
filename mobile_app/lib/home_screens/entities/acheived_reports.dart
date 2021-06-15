@@ -2,27 +2,37 @@
 
 class Report {
   var reportId;
+  // ignore: non_constant_identifier_names
   var insurance_id;
+  // ignore: non_constant_identifier_names
   var first_name;
+  // ignore: non_constant_identifier_names
   var last_name;
   var driversName;
   var cin;
   var adress;
+  // ignore: non_constant_identifier_names
   var permit_id;
   var mark;
   var phone;
+  // ignore: non_constant_identifier_names
   var permit_validation;
   Report(
       {required this.reportId,
+      // ignore: non_constant_identifier_names
       required this.insurance_id,
+      // ignore: non_constant_identifier_names
       required this.first_name,
+      // ignore: non_constant_identifier_names
       required this.last_name,
       required this.driversName,
       required this.cin,
       required this.adress,
+      // ignore: non_constant_identifier_names
       required this.permit_id,
       required this.mark,
       required this.phone,
+      // ignore: non_constant_identifier_names
       required this.permit_validation});
   Report.fromJson(String key, Map<String, dynamic> json) {
     this.reportId = key;
