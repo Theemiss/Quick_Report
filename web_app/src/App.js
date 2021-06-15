@@ -3,6 +3,7 @@ import "./assets/css/nucleo-icons.css";
 import { Switch, Route,BrowserRouter} from 'react-router-dom';
 import Clients from './components/Clients/clients'
 import ClientsId from './components/Clients/singleclient'
+import ReportId from "./components/Reports/reportid"
 import Reports from './components/Reports/reports'
 import SignIn from './components/login/login'
 import './App.css';
@@ -28,12 +29,13 @@ function App() {
         </Route>
         <Route exact path="/reports" component={Reports}/>
 
-        <Route exact path="/allclients" component={Clients } />
+        <Route exact path="/clients" component={Clients } />
         <Route exact path="/">
           <Index/>
         </Route>
-        <Route name="user" exact path="/:id" component={ClientsId}>
+        <Route name="user" exact path="/user/:id" component={ClientsId}>
         </Route>
+        <Route name="report" exact path="/report/:id" component={ReportId}></Route>
    
         <Route exact path="/logout" component={Logout} >
 

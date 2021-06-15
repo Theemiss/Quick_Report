@@ -83,7 +83,7 @@ from api.v1.views import company_route_all
 
 # Public Route for now getting comapny and creating new one
 api.add_resource(company_route_all, "/api/hidden")
-from api.v1.views import Login, sign_up, Logout, TokenRefresh, ClientUserForm, CompanyAllClient, AdminUserID, CompanyAllRepport
+from api.v1.views import Login, sign_up, Logout, TokenRefresh, ClientUserForm, CompanyAllClient, AdminUserID, CompanyAllRepport,CompanySingleRapport
 
 # Authontication
 api.add_resource(sign_up, "/api/signup")  # signup
@@ -99,6 +99,7 @@ api.add_resource(CompanyAllClient, "/api/company/clients")
 api.add_resource(AdminUserID, "/api/company/clients/<id>")
 # Get All Report that bellong to current Company
 api.add_resource(CompanyAllRepport, '/api/company/reports')
+api.add_resource(CompanySingleRapport,'/api/report/<id>')
 from api.v1.views import NewCar, GetUserCar, NewInsurance, GetClientCarId
 
 # Cars and insurrance Endpoint

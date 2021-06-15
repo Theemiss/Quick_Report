@@ -55,8 +55,8 @@ export default function Reports() {
     <tbody>
     {arr.map((user) => (
          <tr>
-            <th ><a href={"http://102.37.113.211/api/client/report/pdf/" + "f8ff4b7c-c06b-4b3e-95d4-0ab902b3917a"}>{i++}</a></th>
-            <th ><Link to={{pathname: `/${user.client_id}`}}>{user.first_name} {user.last_name}</Link></th>
+            <th ><Link to={{pathname: `report/${user.id}`}}>{i++}</Link></th>
+            <th ><Link to={{pathname: `user/${user.client_id}`}}>{user.first_name} {user.last_name}</Link></th>
             <th >{user.Mark} {user.type_c}</th>
             <th >{user.driver_name} {user.driver_lastname}</th>
             <th >{user.created_at}</th>
