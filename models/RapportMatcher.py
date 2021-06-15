@@ -10,7 +10,7 @@ class RapportCar(db.Model, BaseModel):
     CAR_A = db.Column(db.String(80))
     CAR_B = db.Column(db.String(80))
 
-    def __init__(self, a, b):
+    def __init__(self, a="", b=""):
         super().__init__()
         self.id = str(uuid4())
         self.CAR_A = a

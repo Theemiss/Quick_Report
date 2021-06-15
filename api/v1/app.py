@@ -1,4 +1,7 @@
 from flask import Flask, make_response, jsonify
+from datetime import datetime
+from datetime import timedelta
+from datetime import timezone
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
@@ -7,12 +10,13 @@ from flask_migrate import Migrate
 from flask_restful_swagger import swagger
 from dotenv import dotenv_values
 from flask_apispec.extension import FlaskApiSpec
+from flask_wkhtmltopdf import Wkhtmltopdf 
 config = dotenv_values('.env')
 app = Flask(__name__)
+wkhtmltopdf = Wkhtmltopdf(app)
 api = swagger.docs(Api(app), apiVersion='2.8')
 jwt = JWTManager(app)
-
-
+WKHTMLTOPDF_BIN_PATH = "" #path to your wkhtmltopdf installation.
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -28,7 +32,8 @@ app.config['SECRET_KEY'] = 'holbieQuickreport'
 app.config['JWT_SECRET_KEY'] = 'Qucikreportadmin'
 
 
-
+ACCESS_EXPIRES = timedelta(hours=24)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = ACCESS_EXPIRES
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 
@@ -103,7 +108,7 @@ api.add_resource(NewCar, '/api/car/new')  # Create new car
 api.add_resource(GetUserCar, '/api/client/cars')
 # Car by id that belong current Client
 api.add_resource(GetClientCarId, '/api/client/cars/<id>')
-from api.v1.views import ReportNew, Reportid, ReportPdf, Media, AllMedia
+from api.v1.views import ReportNew, Reportid, ReportPdf, Media, AllMedia,MatcherA,MatcherB
 
 # Rapport Creation and Handling
 # Create new Repport or Get All current Client Repport
@@ -115,3 +120,5 @@ api.add_resource(ReportPdf, '/api/client/report/pdf/<a>')
 # Get File image
 api.add_resource(Media, "/api/client/report/media/<path:path>")
 api.add_resource(AllMedia, "/api/client/report/media")  # List all file media
+api.add_resource(MatcherA,'/api/reportA')
+api.add_resource(MatcherB,'/api/reportB')

@@ -173,12 +173,15 @@ class AdminUserID(Resource):
 
 
 def repport_builder(cls, client, car):
-    user = Users.query.filter_by(id=client).first()
-    car = Car.query.filter_by(id=car, CIN=user.CIN).first()
-    data = {**user.to_dict(), **car.to_dict(), "DriverName": cls.driver_name}
-    del data['__class__']
-    del data['authenticated']
-    return data
+    user = Users.query.filter_by(id=client).first().to_dict()
+    if (user["authenticated"]) == False:
+      car = Car.query.filter_by(id=car, CIN=user["CIN"]).first()
+      rapport = cls.to_dict()
+      data = {**user, **car.to_dict(),**rapport}
+      del data['__class__']
+      del data['comany_token']
+      del data['authenticated']
+      return data
 
 
 class CompanyAllRepport(Resource):
@@ -211,19 +214,21 @@ class CompanyAllRepport(Resource):
         """
         Get All rapport belong to company
         """
-        id = get_jwt_identity()
-        admin = Users.query.filter_by(id=id).first()
+        admin_id = get_jwt_identity()
+        admin = Users.query.filter_by(id=admin_id).first()
         if admin.authenticated == True:
+            
             report = Report.query.filter_by(
                 compnay_id=admin.comany_token).all()
             all_report = {}
             for i in report:
                 try:
-                    value = i.to_dict()
-                    if value['authenticated'] == 0:
-                        key = i.id
-                        all_report[key] = repport_builder(
+                    value = repport_builder(
                             i, i.client_id, i.car_id)
+                    key = i.id
+                    all_report[key] = value
                 except:
-                    abort(400)
+                  return  make_response(jsonify({"error" : "Failed"}),401)
             return make_response(jsonify(all_report), 200)
+        else:
+          return make_response(jsonify({"error" : "Failed"}),401)

@@ -12,7 +12,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 import pdfkit
 from models.RapportMatcher import RapportCar
 from flask_restful_swagger import swagger
-
+from flask_wkhtmltopdf import Wkhtmltopdf
 
 UPLOAD_DIRECTORY = "media"
 if not os.path.exists(UPLOAD_DIRECTORY):
@@ -336,7 +336,6 @@ class ReportPdf(Resource):
 
           ]
         )
-    @jwt_required()
     def get(self, a):
         """
             Generate pdf file for the rapport
@@ -347,37 +346,45 @@ class ReportPdf(Resource):
             CarB = Report.query.filter_by(id=rapportmatcher.CAR_B).first()
             CompanyA = Company.query.filter_by(id=CarA.compnay_id).first()
             CompanyB = Company.query.filter_by(id=CarB.compnay_id).first()
+            
+            
             ClientA = Users.query.filter_by(id=CarA.client_id).first()
             ClientB = Users.query.filter_by(id=CarB.client_id).first()
             ClientCarA = Car.query.filter_by(id=CarA.car_id).first()
             ClientCarB = Car.query.filter_by(id=CarB.car_id).first()
             Client1 = {**ClientA.to_dict(), **ClientCarA.to_dict(),
                        **CompanyA.to_dict()}
+            
             del Client1['__class__']
             del Client1['updated_at']
             del Client1['created_at']
+            
             del Client1['insurred']
             del Client1['comany_token']
             del Client1['authenticated']
             Client2 = {**ClientB.to_dict(), **ClientCarB.to_dict(),
                        **CompanyB.to_dict()}
+            
             del Client2['__class__']
             del Client2['updated_at']
             del Client2['created_at']
             del Client2['insurred']
             del Client2['comany_token']
             del Client2['authenticated']
-
+            
             render = render_template("constat.html", ClientA=Client1, ClientB=Client2,
                                      DriverA=CarA.driver_name, DriverB=CarB.driver_name)
-            pdf = pdfkit.from_string(render, False)
+            pdf = pdfkit.from_string(render)
+            print("response")
             response = make_response(pdf)
+            
             response.headers['Content-Type'] = 'application/pdf'
             response.headers['Content-Disposition'] = 'attachent; filename={}.pdf'.format(
                 a)
+            
             return response
         except:
-            return abort(500)
+            return make_response(jsonify({"error":"failed"}),402)
 
 
 feedback = reqparse.RequestParser()
@@ -442,4 +449,33 @@ class NewFeedBack(Resource):
         else:
             new_feedback = Feedback(
                 desscreption=data['Descreption'], rapport=data['Report'])
+            new_feedback.save_to_db()
         make_response(jsonify(new_feedback.to_dict()), 201)
+
+class  MatcherA(Resource):
+    """
+    """
+    @jwt_required()
+    def post(self):
+        user = get_jwt_identity()
+        Matcher = reqparse.RequestParser()
+        Matcher.add_argument('car_a', help='This field cannot be blank', required=True)
+        data = Matcher.parse_args()
+        new = RapportCar(a=data['car_a'])
+        new.save_to_db()
+        return make_response(jsonify({"id": new.id}),200)
+
+class  MatcherB(Resource):
+    """
+    """
+    @jwt_required()
+    def post(self):
+        user = get_jwt_identity()
+        Matcher = reqparse.RequestParser()
+        Matcher.add_argument('car_b', help='This field cannot be blank', required=True)
+        Matcher.add_argument('id', help='This field cannot be blank', required=True)
+        data = Matcher.parse_args()
+        report = RapportCar.query.filter_by(id=data['id']).first()
+        report.CAR_B = data['car_b']
+        report.save_to_db()
+        return make_response(jsonify({"id": report.id}),200)
