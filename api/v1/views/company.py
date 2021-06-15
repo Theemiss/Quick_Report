@@ -234,7 +234,6 @@ class CompanyAllRepport(Resource):
 def builderSingle(rapportid,carid,clientid):
     """
     """
-    print(carid)
     report_info = rapportid.to_dict()
     del report_info['__class__']
     del report_info['compnay_id']
@@ -281,7 +280,7 @@ class CompanySingleRapport(Resource):
         if admin.authenticated == True:
             report = Report.query.filter_by(id=id).first()
             if report is not None:
-                data = builderSingle(report,report.client_id,report.car_id)
+                data = builderSingle(report,report.car_id,report.client_id)
                 return make_response(jsonify(data), 200)
             else:
                 return make_response(jsonify({"error": "Report not found"}), 401)
