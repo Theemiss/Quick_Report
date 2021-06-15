@@ -1,0 +1,22 @@
+.paragraph {
+    color: #000;
+    font-family: FuturaPT, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 200;
+    line-height: 1.38;
+    text-align: left;
+    margin: 0px;
+    padding: 8px;
+    letter-spacing: 2px;
+    text-decoration: wavy;
+}
+
+.Title {
+    text-align: center;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+ul {
+    list-style: none;
+}
