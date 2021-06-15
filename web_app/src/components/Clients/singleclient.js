@@ -51,17 +51,42 @@ export default function ClientsId() {
   return (
     <div className="body-pd" >
       <Menu />
-      <h3>Client N° :<h5>{data.id} </h5></h3>
-       adresse: {data.adresse} <br />
-        email :{data.email} <br />
-       Name : {data.first_name}  <br />
-       last name : {data.last_name} <br />
-       permit id: {data.permit_id} <br />
-       permit valid : {data.permit_validation} <br />
-       phone : {data.phone} <br />
-      CIN : {data.CIN} <br />
+      <div class="card shadow-lg p-3 mb-5 rounded">
+      <div className="container-fluid">
+        <div className="row">
+        <ul>Client N° :{data.id}
+          <li>
+          adresse: {data.adresse} 
+          </li>
+          <li>
+          email :{data.email} 
+          </li>
+          <li>
+          Name : {data.first_name}
+          </li>
+          <li>
+          last name : {data.last_name}
+          </li>
+          <li>
+          permit id: {data.permit_id}
+          </li>
+          <li>
+          permit valid : {data.permit_validation}
+          </li>
+          <li>
+          phone : {data.phone}
+          </li>
+          <li>
+          CIN : {data.CIN}
+          </li>
+        </ul>
+      </div>
 
-    </div>
+
+        </div>
+      </div>
+      </div>
+    
   )
 };
 
