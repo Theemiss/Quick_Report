@@ -41,6 +41,64 @@ class _DriverVsOwnerState extends State<DriverVsOwner> {
           ),
         ),
       ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Text(
+                'Is the damaged vehicle yours ?',
+                style: TextStyle(
+                  color: Colors.blueAccent,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 100),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context) => DriverVsOwner()));
+                        },
+                        child: Text('Yes'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blueAccent,
+                          onPrimary: Colors.black,
+                          shape: (RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          )),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 50,
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text('No'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.redAccent,
+                          onPrimary: Colors.black,
+                          shape: (RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          )),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
