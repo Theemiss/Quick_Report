@@ -9,6 +9,7 @@ import './App.css';
 import useToken from './components/app/useToken'
 import Logout from './components/login/logout'
 import Index from './components/app/main'
+import About from './components/about/about'
 function App() {
   const { token, setToken } = useToken();
   if(!token) {
@@ -20,7 +21,7 @@ function App() {
       
       <BrowserRouter>
       <Switch>
-        <Route exact path="/about">
+        <Route exact path="/about" component={About}>
         </Route>
 
         <Route exact path="/contact">
