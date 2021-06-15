@@ -14,7 +14,7 @@ import { Link, useParams } from 'react-router-dom'
 
 
 
-export default function ClientsId() {
+export default function ReportId() {
   const { token, setToken } = useToken();
   const [data, setData] = useState({});
   const [car, setCar] = useState({});
