@@ -13,15 +13,7 @@ code {
 }
 
 
-@font-face {
-  font-family: 'RobotoRegular';
-  src: url('./fonts/Roboto-Regular.ttf');
-}
 
-@font-face {
-  font-family: 'RobotoThin';
-  src: url('./fonts/Roboto-Thin.ttf');
-}
 
 a.nav-link:hover{
   color: #C3073F  !important;
