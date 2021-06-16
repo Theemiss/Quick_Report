@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Item {
-  const Item(this.name);
-  final String name;
+  // ignore: non_constant_identifier_names
+  var car_id;
+  var mark;
+  var type;
+  Item(String id, String mark, String type) {
+    this.car_id = id;
+    this.mark = mark;
+    this.type = type;
+  }
+  // const Item(this.name);
+  // final String name;
 }
 
 class SelectyourCar extends StatefulWidget {
@@ -14,31 +24,65 @@ class SelectyourCar extends StatefulWidget {
 }
 
 class _SelectyourCarState extends State<SelectyourCar> {
-  Item? selectedCompany;
-  List<Item> cars = [
-    Item('Car 1'),
-    Item('Car 2'),
-    Item('Car 3'),
-    Item('Car 4'),
-    Item('Car 5'),
-  ];
+  List cars = [];
+
+  fetchCars() async {
+    var url = 'http://102.37.113.211/api/client/cars';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    dynamic to = prefs.getString('jwt');
+    print(to);
+    String? token = 'Bearer ' + to;
+    var response = await Dio().get(
+      url,
+      options: Options(headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      }),
+    );
+    // print(response.data);
+    return response.data;
+  }
+
+  List mapToList(Map data) {
+    List carsList = [];
+    data.forEach((a, b) => carsList.add(b));
+    return carsList;
+  }
+
+  Item? selectedCar;
+  List<Item> carsList = [];
+  @override
+  void initState() {
+    fetchCars().then((data) {
+      setState(() {
+        cars = mapToList(data);
+
+        carsList = [
+          Item(cars[0]['id'], cars[0]['Mark'], cars[0]['type_c']),
+          Item(cars[1]['id'], cars[1]['Mark'], cars[1]['type_c'])
+        ];
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       child: DropdownButton<Item>(
         hint: Text('Select your car ID'),
-        value: selectedCompany,
+        value: selectedCar,
         onChanged: (value) {
           setState(() {
-            selectedCompany = value;
+            selectedCar = value;
           });
         },
-        items: cars.map((company) {
+        items: carsList.map((car) {
           return DropdownMenuItem(
-            value: company,
+            value: car,
             child: Row(children: [
-              Text(company.name),
+              Text(car.mark + " " + car.type),
             ]),
           );
         }).toList(),
