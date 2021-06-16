@@ -1,5 +1,5 @@
 .border {
-  border-color: #c3073f !important;
+  border-color: #3498db !important;
   color: black;
 }
 .matme {
@@ -9,19 +9,18 @@
 .border-2 {
   background-color: white;
   color: black;
-  border-color: #c3073f !important;
+  border-color: #3498db !important;
 }
 .nayek {
-  background-color: white !important;
   color: #1a1a1d;
 }
 .nayek.active {
-  background-color: #c3073f !important;
+  background-color: #3498db !important;
   border-color: #1a1a1d;
   color: white;
 }
 .btn {
-  background-color: #c3073f !important;
+  background-color: #3498db !important;
   border-color: #1a1a1d !important;
   color: white;
 }
@@ -40,6 +39,35 @@ ul li {
   padding: 2px;
 }
 .sub-title {
-  color: #c3073f;
+  color: var(--first-color-light);
   font-size: xx-large;
+}
+.card{
+  background-color: var(--first-color) !important;
+} 
+.question{
+  list-style: square;
+  text-align: center;
+  font-size: medium;
+  padding: 10px;
+  line-height: normal;
+  margin: 10px;
+}
+.center{
+  text-align: center;
+}
+.box{
+  padding: 10px;
+}
+.question-a{
+  padding: 10px;
+  line-height: normal;
+  text-align: justify;
+  margin: 10px;
+}
+.sketch{
+  display: block;
+  margin: auto;
+  height: 400px;
+  width: 400px;
 }

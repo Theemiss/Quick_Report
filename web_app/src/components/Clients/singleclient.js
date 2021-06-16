@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import Menu from "../common/menu";
 import useToken from "../app/useToken";
 import "./client.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 //import {Button} from 'reactstrap';
 
@@ -38,11 +39,13 @@ export default function ClientsId() {
   return (
     <div className="body-pd">
       <Menu />
+      <h3 className="Title" id="1">
+      Client N° : <small class="text-muted">{data.id} </small>{" "}
+      </h3>
       <div class="card shadow-lg p-3 mb-5 rounded">
         <div className="container-fluid">
           <div className="row">
-            <ul>
-              Client N° :{data.id}
+            <ul><h4 class="h2">General Info</h4>
               <li>Adress: {data.adresse}</li>
               <li>email :{data.email}</li>
               <li>Name : {data.first_name}</li>
@@ -53,7 +56,17 @@ export default function ClientsId() {
               <li>CIN : {data.CIN}</li>
             </ul>
           </div>
+          <div className="row">
+            <ul><h4 class="h2">Car and Insurance</h4>
+              <li>Matricule: </li>
+              <li>Type : </li>
+              <li>Model:</li>
+              <li> Date : </li>
+            </ul>
+          </div>
         </div>
+     <Link to='/reports'> <Button className="btn-lg"> View Report</Button></Link>  
+
       </div>
     </div>
   );

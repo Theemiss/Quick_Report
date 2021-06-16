@@ -2,8 +2,13 @@
   text-align: center;
   padding: 10px;
   margin: 10px;
+  text-transform: uppercase;
+  color: #fff !important;
 }
-
+.dark-mode {
+  background-color: #454d55 !important;
+  color: #fff;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -15,16 +20,7 @@
   }
 }
 
-.App-header {
-  background-color: hotpink;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+
 
 .App-link {
   color: #61dafb;
@@ -37,4 +33,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+.container{
+  color: #fff;
+}
+.table{
+  color: #fff !important;
+}
+.col{
+  color: white;
+}
+.row{
+  color: #fff;
+}
+.col{
+  color: #fff;
+}
+.shadow{
+  box-shadow: 0 .2rem 1rem black !important;
+}
+button{
+  background-color: var(--first-color) !important;
+}
+.btn{
+  background-color: var(--first-color) !important;
+
 }

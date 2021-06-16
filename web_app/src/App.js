@@ -8,7 +8,6 @@ import SignIn from "./components/login/login";
 import "./App.css";
 import useToken from "./components/app/useToken";
 import Logout from "./components/login/logout";
-import Index from "./components/app/main";
 import About from "./components/about/about";
 import Dashboard from "./components/Dashboard/Dashboard"
 function App() {

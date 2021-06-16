@@ -272,7 +272,7 @@ iframe {
 }
 
 .btn-show-pass:hover {
-  color: #c3073f;
+  color: #3498db;
   color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
   color: -o-linear-gradient(left, #21d4fd, #b721ff);
   color: -moz-linear-gradient(left, #21d46a7dfefd, #b721ff);
@@ -280,7 +280,7 @@ iframe {
 }
 
 .btn-show-pass.active {
-  color: #c3073f;
+  color: #3498db;
   color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
   color: -o-linear-gradient(left, #21d4fd, #b721ff);
   color: -moz-linear-gradient(left, #21d4fd, #b721ff);

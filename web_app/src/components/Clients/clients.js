@@ -53,7 +53,7 @@ export default function Clients() {
               <ListGroup className="nayek">
                 <Link to={{ pathname: `user/${user.id}` }}>
                   {" "}
-                  <ListGroup.Item className="nayek shadow-lg p-3 mb-2 bg-white rounded">
+                  <ListGroup.Item className="  shadow mb-2  ">
                     {user.email}
                   </ListGroup.Item>
                 </Link>

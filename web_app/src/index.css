@@ -13,8 +13,14 @@ code {
 }
 
 
+a{
+  color:white !important;
+}
+a:hover{
+  color: var(--first-color-light) !important;
+}
 
-
-a.nav-link:hover{
-  color: #C3073F  !important;
+.list-group-item{
+  background-color: var(--first-color);
+  border: 1px solid rgba(0,0,0,.125);
 }
