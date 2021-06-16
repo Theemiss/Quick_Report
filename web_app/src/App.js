@@ -11,6 +11,7 @@ import useToken from "./components/app/useToken";
 import Logout from "./components/login/logout";
 import Index from "./components/app/main";
 import About from "./components/about/about";
+import Dashboard from "./components/Dashboard/Dashboard"
 function App() {
   const { token, setToken } = useToken();
   if (!token) {
@@ -28,7 +29,7 @@ function App() {
 
           <Route exact path="/clients" component={Clients} />
           <Route exact path="/">
-            <Index />
+            <Dashboard />
           </Route>
           <Route
             name="user"
