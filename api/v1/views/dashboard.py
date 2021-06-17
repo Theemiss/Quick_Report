@@ -27,8 +27,9 @@ class Dashboard(Resource):
     def get(self):
         admin_id = get_jwt_identity()
         admin = Users.query.filter_by(id=admin_id).first()
-        user_count = Users.query.filter_by(comany_token=admin.comany_token).count()
-        report_count = Report.query.filter_by(compnay_id=admin.compnay_token).count()
+        print (admin.to_dict())
+        user_count = Users.query.filter_by(comany_token=admin.comany_token,authenticated=False).count()
+        report_count = Report.query.filter_by(compnay_id=admin.comany_token).count()
         Count = {"user" : user_count,"report":report_count}
         return make_response(jsonify(Count),200)
 

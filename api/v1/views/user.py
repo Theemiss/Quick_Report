@@ -78,6 +78,7 @@ class Login(Resource):
             }
           ]
         )
+        
     def post(self):
         """ Login : Post : Login by email and password
         If client not found error  400

@@ -13,7 +13,7 @@ class Users(db.Model, BaseModel):
     first_name = db.Column(db.String(30))
     last_name = db.Column(db.String(30))
     phone = db.Column(db.String(30))
-    address = db.Column(db.String(30))
+    adresse = db.Column(db.String(30))
     permit_id = db.Column(db.String(30), unique=True)
     permit_validation = db.Column(db.DateTime)
     comany_token = db.Column(
@@ -32,7 +32,7 @@ class Users(db.Model, BaseModel):
         self.car_id = car_id
         self.permit_id = p_id
         self.permit_validation = p_v
-        self.address = addr
+        self.adresse = addr
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)
