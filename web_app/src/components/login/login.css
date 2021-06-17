@@ -434,3 +434,7 @@ a {
   color: black !important;
   margin-right: 8px;
 }
+
+.alert-default{
+  color: #333333 !important;
+}
