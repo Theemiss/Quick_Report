@@ -1,18 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useToken from "../app/useToken";
 import Menu from "../common/menu";
 import "./Dashboard.css";
 import ChartistGraph from "react-chartist";
 import { Row, Col } from "react-bootstrap";
-var dataPie = {
-  labels: ["62%", "32%", "6%"],
-  series: [62, 32, 6],
-};
 
+export default function Dashboard() {
+  const { token, setToken } = useToken();
+  const [data, setData] = useState({});
+  const Token = "Bearer ".concat(token);
 
+  const url = "http://102.37.113.211/api/company/data";
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: Token,
+        },
+      });
 
-// Data for Bar Chart
-var dataBar = {
-  labels: [
+      const email = await response.json();
+
+      setData(email);
+    };
+    fetchUserInfo();
+    // eslint-disable-next-line
+  }, []);
+  var dataPie = {
+    labels: ["0%", "100%", "0%"],
+    series: [0, 100, 0],
+  };
+
+  var labels = [
     "Jan",
     "Feb",
     "Mar",
@@ -25,34 +46,39 @@ var dataBar = {
     "Oct",
     "Nov",
     "Dec",
-  ],
-  series: [
-    [20, 100, 199, 200, 204, 300, 425, 503, 700, 900, 1000, 1500],
-    [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 100],
-  ],
-};
-var optionsBar = {
-  seriesBarDistance: 10,
-  axisX: {
-    showGrid: false,
-  },
-  height: "245px",
-};
-var responsiveBar = [
-  [
-    "screen and (max-width: 640px)",
-    {
-      seriesBarDistance: 5,
-      axisX: {
-        labelInterpolationFnc: function (value) {
-          return value[0];
+  ];
+
+  var series = [
+    [0, 0, 0, 0, 0, data.user, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, data.report, 0, 0, 0, 0, 0, 0],
+  ];
+
+  // Data for Bar Chart
+  var dataBar = {
+    labels,
+    series,
+  };
+  var optionsBar = {
+    seriesBarDistance: 10,
+    axisX: {
+      showGrid: false,
+    },
+    height: "245px",
+  };
+  var responsiveBar = [
+    [
+      "screen and (max-width: 640px)",
+      {
+        seriesBarDistance: 5,
+        axisX: {
+          labelInterpolationFnc: function (value) {
+            return value[0];
+          },
         },
       },
-    },
-  ],
-];
+    ],
+  ];
 
-export default function Dashboard() {
   return (
     <div className="body-pd">
       <Menu></Menu>
@@ -63,11 +89,11 @@ export default function Dashboard() {
             <div className="box-title"> Number Client</div>
             <ul>
               <li>
-                <span>All :</span> 1500
+                <span>All :</span> {data.user}
               </li>
               <br />
               <li>
-                <span>New :</span> 20
+                <span>New :</span> Coming soon
               </li>
             </ul>
           </Col>
@@ -75,11 +101,11 @@ export default function Dashboard() {
             <div className="box-title"> Reports</div>
             <ul>
               <li>
-                <span>All :</span> 100
+                <span>All :</span> {data.report}
               </li>
               <br />
               <li>
-                <span>New :</span> 12
+                <span>New :</span> Coming soon
               </li>
             </ul>
           </Col>
@@ -87,11 +113,11 @@ export default function Dashboard() {
             <div className="box-title"> Feedback Awaiting</div>
             <ul>
               <li>
-                <span>All :</span> 20
+                <span>All :</span> Coming soon
               </li>
               <br />
               <li>
-                <span>New :</span> 2
+                <span>New :</span> Coming soon
               </li>
             </ul>
           </Col>
@@ -100,9 +126,7 @@ export default function Dashboard() {
             <div>Red : Report Done</div>
             <div>Blue : Under Review</div>
             <div>Yellow : Wrong Info</div>
-
           </div>
-          
         </Row>
 
         <div className=" data">
@@ -115,25 +139,19 @@ export default function Dashboard() {
             />
             <div>Red : Client</div>
             <div>Blue : Report</div>
-
-
           </div>
         </div>
-          <div className=" data">
-            <div className="col">
-              <div className="box-title h4"> Updates</div>
-              <ul>
-                <li>
-                  Coming soon
-                </li>
-                <br />
-                <li>
-                  
-                </li>
-              </ul>
-            </div>
+        <div className=" data">
+          <div className="col">
+            <div className="box-title h4"> Updates</div>
+            <ul>
+              <li>Coming soon</li>
+              <br />
+              <li></li>
+            </ul>
           </div>
         </div>
       </div>
+    </div>
   );
 }

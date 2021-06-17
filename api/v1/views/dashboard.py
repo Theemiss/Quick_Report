@@ -63,3 +63,26 @@ class GetBReport(Resource):
                 return make_response(jsonify(new_data),200)
         else:
            return make_response(jsonify({}),201)
+
+
+class AllClientCar(Resource):
+    @jwt_required()
+    def get(self,id):
+        user = Users.query.filter_by(id=id).first()
+        if user is not None:
+            cars = Car.query.filter_by(CIN=user.CIN).all()
+            if cars is None:
+                return make_response(jsonify({}),200)
+            else:
+                car = {}
+                for x in cars:
+                    data = x.to_dict()
+                    key = key = data['__class__'] + '.' + data['id']
+                    car[key] = data
+                return make_response(jsonify(car),200)
+        else:
+            return make_response(jsonify({}),400)
+
+
+        
+        
