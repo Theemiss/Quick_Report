@@ -21,7 +21,6 @@ class _ReportManagerState extends State<ReportManager> {
     var url = 'http://102.37.113.211/api/client/report';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     dynamic to = prefs.getString('jwt');
-    print(to);
     String? token = 'Bearer ' + to;
     var response = await Dio().get(
       url,
@@ -47,7 +46,11 @@ class _ReportManagerState extends State<ReportManager> {
 
   List mapToList(Map data) {
     List list = [];
-    data.forEach((a, b) => list.add(b));
+    data.forEach((key, value) {
+      list.add(key);
+
+
+    });
     return list;
   }
 
@@ -56,6 +59,7 @@ class _ReportManagerState extends State<ReportManager> {
     fetchReports().then((data) {
       setState(() {
         reports = mapToList(data);
+
       });
     });
     super.initState();

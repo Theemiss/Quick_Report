@@ -18,7 +18,7 @@ class GeneratedReports extends StatelessWidget {
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.start,r
               children: [
-                Text(_reports[0]['id'].toString()),
+                Text(_reports[index]),
               ],
             ),
           ),

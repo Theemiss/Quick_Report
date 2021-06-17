@@ -252,7 +252,7 @@ report(name, name2, permit, permit_vald, adress, BuildContext context) async {
     WidgetsFlutterBinding.ensureInitialized();
     // ignore: unused_local_variable
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Navigator.pushNamed(context, '/');
+    Navigator.pushNamed(context, '/fourthPage');
   } else {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('Wrong Data')));

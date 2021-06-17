@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
 import 'package:more_pro_ui_qr/screens/form_screens/date.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dio/dio.dart';
 
 class DriverVsOwner extends StatefulWidget {
   @override
@@ -65,8 +69,11 @@ class _DriverVsOwnerState extends State<DriverVsOwner> {
                       width: 150,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => DateScreen()));
+                          user(context).then((data) => {
+                            report(data, context)
+                          });
+
+                         
                         },
                         child: Text('Yes'),
                         style: ElevatedButton.styleFrom(
@@ -105,4 +112,47 @@ class _DriverVsOwnerState extends State<DriverVsOwner> {
       ),
     );
   }
+}
+
+user(BuildContext context) async {
+  var url = 'http://102.37.113.211/api/client';
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  dynamic to = prefs.getString('jwt');
+  print(to);
+  String? token = 'Bearer ' + to;
+  var response = await Dio().get(
+    url,
+    options: Options(
+        headers: {'Content-Type': 'application/json', 'Authorization': token}),
+  );
+  // print(response.data);
+  return response.data;
+}
+
+report(data, BuildContext context) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  dynamic carid = prefs.getString('CarId');
+  dynamic token = prefs.getString('jwt');
+  String Token = "Bearer " + token;
+  Map user = {
+    'DriverName': data['first_name'],
+    'DriverLastName': data['last_name'],
+    "DriverPermit": data['permit_id'],
+    "DriverPermitValidation": data[''],
+    "DriverAdresse": data['adresse'],
+    "CarId": carid
+  };
+  var url = Uri.parse('http://102.37.113.211/api/client/report');
+  final response = await http.post(url,
+      headers: {'Content-Type': 'application/json', "Authorization": Token},
+      body: jsonEncode(user));
+  if (response.statusCode == 201) {
+    Map mapresposne = jsonDecode(response.body);
+    //print(Mapresposne);
+    WidgetsFlutterBinding.ensureInitialized();
+    // ignore: unused_local_variable
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Navigator.pushNamed(context, '/fourthPage');
+  } 
 }
