@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
+import 'package:more_pro_ui_qr/screens/form_screens/date.dart';
 
 class DriverVsOwner extends StatefulWidget {
   @override
@@ -64,8 +65,8 @@ class _DriverVsOwnerState extends State<DriverVsOwner> {
                       width: 150,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (context) => DriverVsOwner()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DateScreen()));
                         },
                         child: Text('Yes'),
                         style: ElevatedButton.styleFrom(
@@ -81,7 +82,10 @@ class _DriverVsOwnerState extends State<DriverVsOwner> {
                       height: 50,
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DateScreen()));
+                        },
                         child: Text('No'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.redAccent,
