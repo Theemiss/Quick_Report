@@ -22,7 +22,7 @@ class FetchCar(Resource):
             return make_response(jsonify(car.to_dict()),200)
 
 
-class Static(Resource):
+class Dashboard(Resource):
     @jwt_required()
     def get(self):
         admin_id = get_jwt_identity()
