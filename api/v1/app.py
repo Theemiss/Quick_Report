@@ -122,3 +122,7 @@ api.add_resource(Media, "/api/client/report/media/<path:path>")
 api.add_resource(AllMedia, "/api/client/report/media")  # List all file media
 api.add_resource(MatcherA,'/api/reportA')
 api.add_resource(MatcherB,'/api/reportB')
+from api.v1.views import FetchCar,Static,GetBReport
+api.add_resource(Static,"/api/company/data")
+api.add_resource(GetBReport,"/api/company/<id>")
+api.add_resource(FetchCar,'/api/company/Car')
