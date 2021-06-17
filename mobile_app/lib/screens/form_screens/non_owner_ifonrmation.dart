@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
 // import 'package:more_pro_ui_qr/screens/form_screens/check_boxes.dart';
 
 class DriversInormation extends StatefulWidget {
@@ -9,6 +13,14 @@ class DriversInormation extends StatefulWidget {
 class _DriversInormationState extends State<DriversInormation> {
   @override
   Widget build(BuildContext context) {
+    String? name, name2, driverpermit, validation, addre;
+    TextEditingController _name = new TextEditingController();
+    TextEditingController _name2 = new TextEditingController();
+    TextEditingController _driverpermit = new TextEditingController();
+    TextEditingController _driveradresse = new TextEditingController();
+    TextEditingController _validation = new TextEditingController();
+
+    final _key = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
@@ -41,6 +53,8 @@ class _DriversInormationState extends State<DriversInormation> {
       ),
       body: Center(
         child: SingleChildScrollView(
+            child: Form(
+          key: _key,
           child: Column(
             children: <Widget>[
               Text(
@@ -54,6 +68,7 @@ class _DriversInormationState extends State<DriversInormation> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
+                  controller: _name,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
@@ -64,12 +79,19 @@ class _DriversInormationState extends State<DriversInormation> {
                     suffixIcon: Icon(Icons.person, size: 35),
                     hintText: "First Name",
                   ),
+                  onSaved: (val) {
+                    name = val;
+                  },
                 ),
               ),
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
+                  controller: _name2,
+                  onSaved: (val) {
+                    name2 = val;
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
@@ -86,6 +108,10 @@ class _DriversInormationState extends State<DriversInormation> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
+                  controller: _driverpermit,
+                  onSaved: (val) {
+                    driverpermit = val;
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
@@ -102,6 +128,10 @@ class _DriversInormationState extends State<DriversInormation> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
+                  controller: _validation,
+                  onSaved: (val) {
+                    validation = val;
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
@@ -110,7 +140,7 @@ class _DriversInormationState extends State<DriversInormation> {
                     ),
                     contentPadding: EdgeInsets.all(15),
                     suffixIcon: Icon(Icons.payment, size: 35),
-                    hintText: "ID card number",
+                    hintText: "Permit Validation",
                   ),
                 ),
               ),
@@ -118,6 +148,10 @@ class _DriversInormationState extends State<DriversInormation> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
+                  controller: _driveradresse,
+                  onSaved: (val) {
+                    addre = val;
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
@@ -135,7 +169,9 @@ class _DriversInormationState extends State<DriversInormation> {
                 height: 50,
                 width: 180,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    report(_name.text,_name2.text,_driverpermit.text,_validation.text,_driveradresse.text,context);
+                  },
                   child: Text('Submit'),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.blueAccent,
@@ -186,8 +222,40 @@ class _DriversInormationState extends State<DriversInormation> {
               )
             ],
           ),
-        ),
+        )),
       ),
     );
+  }
+}
+
+report(name, name2, permit, permit_vald, adress, BuildContext context) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  dynamic carid = prefs.getString('CarId');
+  dynamic token = prefs.getString('jwt');
+  String Token = "Bearer " + token;
+  print(carid);
+  Map user = {
+    'DriverName': name,
+    'DriverLastName': name2,
+    "DriverPermit": permit,
+    "DriverPermitValidation": permit_vald,
+    "DriverAdresse": adress,
+    "CarId": carid
+  };
+  var url = Uri.parse('http://102.37.113.211/api/client/report');
+  final response = await http.post(url,
+      headers: {'Content-Type': 'application/json', "Authorization": Token},
+      body: jsonEncode(user));
+  if (response.statusCode == 201) {
+    Map mapresposne = jsonDecode(response.body);
+    //print(Mapresposne);
+    WidgetsFlutterBinding.ensureInitialized();
+    // ignore: unused_local_variable
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Navigator.pushNamed(context, '/');
+  } else {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Wrong Data')));
   }
 }

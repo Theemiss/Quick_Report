@@ -77,6 +77,8 @@ class _SelectyourCarState extends State<SelectyourCar> {
           setState(() {
             selectedCar = value;
           });
+          savePref(value);
+       
         },
         items: carsList.map((car) {
           return DropdownMenuItem(
@@ -89,4 +91,14 @@ class _SelectyourCarState extends State<SelectyourCar> {
       ),
     );
   }
+}
+
+savePref(Item? car) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  if (car != null){
+      preferences.setString("CarId", car.car_id);
+        // ignore: deprecated_member_use
+        preferences.commit();
+  }
+
 }
