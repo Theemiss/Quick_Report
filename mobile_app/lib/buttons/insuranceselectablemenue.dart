@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Item {
-  const Item(this.name);
-  final String name;
+  // ignore: non_constant_identifier_names
+  var id;
+  var name;
+  Item(String name, String id) {
+    this.name = name;
+    this.id = id;
+  }
 }
 
 class DropDownMenue extends StatefulWidget {
@@ -13,15 +20,48 @@ class DropDownMenue extends StatefulWidget {
 }
 
 class _DropDownMenueState extends State<DropDownMenue> {
-  Item? selectedCompany;
+  List company = [];
 
-  List<Item> companies = [
-    Item('Company 1'),
-    Item('Company 2'),
-    Item('Company 3'),
-    Item('Company 4'),
-    Item('Company 5'),
-  ];
+  fetchcompany() async {
+    var url = 'http://102.37.113.211/api/hidden';
+   
+    var response = await Dio().get(
+      url,
+      options: Options(headers: {
+        'Content-Type': 'application/json'
+      }),
+    );
+    // print(response.data);
+    return response.data;
+  }
+
+  List mapToList(Map data) {
+    List carsList = [];
+    data.forEach((a, b) => carsList.add(b));
+    return carsList;
+  }
+
+
+
+
+  Item? selectedCompany;
+   List<Item> companylist = [];
+  @override
+  void initState() {
+    fetchcompany().then((data) {
+      setState(() {
+        company = mapToList(data);
+
+        companylist = [
+          Item(company[0]['name'], company[0]['id']),
+          Item(company[1]['name'], company[1]['id'])
+        ];
+      });
+    });
+    super.initState();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +74,10 @@ class _DropDownMenueState extends State<DropDownMenue> {
           setState(() {
             selectedCompany = value;
           });
+          savePref(value);
+
         },
-        items: companies.map((company) {
+        items: companylist.map((company) {
           return DropdownMenuItem(
             value: company,
             child: Row(children: [
@@ -46,4 +88,14 @@ class _DropDownMenueState extends State<DropDownMenue> {
       ),
     );
   }
+}
+
+savePref(Item? car) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  if (car != null){
+      preferences.setString("companyId", car.id);
+        // ignore: deprecated_member_use
+        preferences.commit();
+  }
+
 }

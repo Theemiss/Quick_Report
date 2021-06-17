@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/buttons/insuranceselectablemenue.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FirstSignUpPage extends StatefulWidget {
   @override
@@ -109,6 +112,8 @@ class _FirstSignUpPageState extends State<FirstSignUpPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
+                        savePref(_emailController.text, _idCardController.text,
+                            _passwordController.text);
                         Navigator.pushNamed(context, '/thirdPage');
                       },
                       child: Text('Move to the next step'),
@@ -145,4 +150,15 @@ class _FirstSignUpPageState extends State<FirstSignUpPage> {
       ),
     );
   }
+}
+
+savePref(String email, cin, password) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+
+  preferences.setString("email", email);
+  preferences.setString("cin", cin);
+  preferences.setString("password", password);
+
+  // ignore: deprecated_member_use
+  preferences.commit();
 }

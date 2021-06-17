@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SecondSignUpPage extends StatefulWidget {
   @override
@@ -177,7 +180,16 @@ class _SecondSignUpPageState extends State<SecondSignUpPage> {
                       height: 50,
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          signup(
+                              _firstNameController.text,
+                              _lastNameController.text,
+                              _userAdressController.text,
+                              _phoneNumberController.text,
+                              _driverLicenseController.text,
+                              _licenseDateController.text,
+                              context);
+                        },
                         child: Text('Register'),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.blueAccent,
@@ -210,5 +222,52 @@ class _SecondSignUpPageState extends State<SecondSignUpPage> {
         ),
       ),
     );
+  }
+}
+
+savePref(String jwt) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+
+  preferences.setString("jwt", jwt);
+  preferences.setBool("isLogged", true);
+
+  // ignore: deprecated_member_use
+  preferences.commit();
+}
+
+signup(firstName, lastName, userAdress, phoneNumber, driverLicense, licenseDate,
+    BuildContext context) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  dynamic email = prefs.getString('email');
+  dynamic cin = prefs.getString('cin');
+  dynamic password = prefs.getString('password');
+  dynamic companyid = prefs.getString('companyId');
+  Map user = {
+    'Email': email,
+    'Password': password,
+    'CIN': cin,
+    'FirstName': firstName,
+    'LastName': firstName,
+    'Phone': phoneNumber,
+    'Adresse': userAdress,
+    "PermitId": driverLicense,
+    "PermitValidation": licenseDate,
+    'CompanyToken': companyid
+  };
+  var url = Uri.parse('http://102.37.113.211/api/signup');
+  final response = await http.post(url,
+      headers: {'Content-Type': 'application/json'}, body: jsonEncode(user));
+  if (response.statusCode == 201) {
+    Map mapresposne = jsonDecode(response.body);
+    //print(Mapresposne);
+    savePref(mapresposne['token']);
+    WidgetsFlutterBinding.ensureInitialized();
+    // ignore: unused_local_variable
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Navigator.pushNamed(context, '/fourthPage');
+  } else {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Please check your information')));
   }
 }

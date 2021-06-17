@@ -234,7 +234,6 @@ report(name, name2, permit, permit_vald, adress, BuildContext context) async {
   dynamic carid = prefs.getString('CarId');
   dynamic token = prefs.getString('jwt');
   String Token = "Bearer " + token;
-  print(carid);
   Map user = {
     'DriverName': name,
     'DriverLastName': name2,
