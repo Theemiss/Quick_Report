@@ -53,9 +53,9 @@ def builderSingle(rapportid, carid, clientid):
 class GetBReport(Resource):
     @jwt_required()
     def get(self,id):
-        data = RapportCar.query.filter_by(CAR_A=id).first()
+        data = RapportCar.query.filter_by(CAR_A=id,).first()
         if data is not None:
-            report = Report.query.filter_by(id=data.Car_B).first()
+            report = Report.query.filter_by(id=data.CAR_B).first()
             if report is None:
                 return make_response(jsonify({}),200)
             else:

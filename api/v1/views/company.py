@@ -173,10 +173,12 @@ class AdminUserID(Resource):
 
 def repport_builder(cls, client, car):
     user = Users.query.filter_by(id=client).first().to_dict()
+    
     if (user["authenticated"]) == False:
         car = Car.query.filter_by(id=car, CIN=user["CIN"]).first()
         rapport = cls.to_dict()
         data = {**user, **car.to_dict(), **rapport}
+        
         del data['__class__']
         del data['comany_token']
         del data['authenticated']
