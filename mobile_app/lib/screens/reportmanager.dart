@@ -48,8 +48,6 @@ class _ReportManagerState extends State<ReportManager> {
     List list = [];
     data.forEach((key, value) {
       list.add(key);
-
-
     });
     return list;
   }
@@ -59,7 +57,6 @@ class _ReportManagerState extends State<ReportManager> {
     fetchReports().then((data) {
       setState(() {
         reports = mapToList(data);
-
       });
     });
     super.initState();
@@ -69,7 +66,7 @@ class _ReportManagerState extends State<ReportManager> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
       appBar: AppBar(
         toolbarHeight: 70,
         title: Text('Reports History'),
@@ -80,18 +77,18 @@ class _ReportManagerState extends State<ReportManager> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(25),
-            ),
-            gradient: LinearGradient(
-              colors: [Colors.redAccent, Colors.blueAccent],
-              begin: Alignment.bottomRight,
-              end: Alignment.topLeft,
-            ),
-          ),
-        ),
+        // flexibleSpace: Container(
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.vertical(
+        //       bottom: Radius.circular(25),
+        //     ),
+        //     gradient: LinearGradient(
+        //       colors: [Colors.redAccent, Colors.blueAccent],
+        //       begin: Alignment.bottomRight,
+        //       end: Alignment.topLeft,
+        //     ),
+        //   ),
+        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(

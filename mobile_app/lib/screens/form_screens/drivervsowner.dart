@@ -27,18 +27,18 @@ class _DriverVsOwnerState extends State<DriverVsOwner> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(25),
-            ),
-            gradient: LinearGradient(
-              colors: [Colors.redAccent, Colors.blueAccent],
-              begin: Alignment.bottomRight,
-              end: Alignment.topLeft,
-            ),
-          ),
-        ),
+        // flexibleSpace: Container(
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.vertical(
+        //       bottom: Radius.circular(25),
+        //     ),
+        //     gradient: LinearGradient(
+        //       colors: [Colors.redAccent, Colors.blueAccent],
+        //       begin: Alignment.bottomRight,
+        //       end: Alignment.topLeft,
+        //     ),
+        //   ),
+        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -69,11 +69,7 @@ class _DriverVsOwnerState extends State<DriverVsOwner> {
                       width: 150,
                       child: ElevatedButton(
                         onPressed: () {
-                          user(context).then((data) => {
-                            report(data, context)
-                          });
-
-                         
+                          user(context).then((data) => {report(data, context)});
                         },
                         child: Text('Yes'),
                         style: ElevatedButton.styleFrom(
@@ -154,5 +150,5 @@ report(data, BuildContext context) async {
     // ignore: unused_local_variable
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Navigator.pushNamed(context, '/fourthPage');
-  } 
+  }
 }

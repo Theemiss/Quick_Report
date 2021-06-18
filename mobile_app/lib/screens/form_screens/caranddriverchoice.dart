@@ -24,18 +24,18 @@ class _FirstChoicesState extends State<FirstChoices> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(25),
-            ),
-            gradient: LinearGradient(
-              colors: [Colors.redAccent, Colors.blueAccent],
-              begin: Alignment.bottomRight,
-              end: Alignment.topLeft,
-            ),
-          ),
-        ),
+        // flexibleSpace: Container(
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.vertical(
+        //       bottom: Radius.circular(25),
+        //     ),
+        //     gradient: LinearGradient(
+        //       colors: [Colors.redAccent, Colors.blueAccent],
+        //       begin: Alignment.bottomRight,
+        //       end: Alignment.topLeft,
+        //     ),
+        //   ),
+        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(

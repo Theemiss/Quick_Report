@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:more_pro_ui_qr/screens/form_screens/check_boxes.dart';
@@ -22,6 +23,8 @@ class _DriversInormationState extends State<DriversInormation> {
 
     final _key = GlobalKey<FormState>();
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         toolbarHeight: 70,
         title: Text('Filling the form'),
@@ -32,18 +35,18 @@ class _DriversInormationState extends State<DriversInormation> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(25),
-            ),
-            gradient: LinearGradient(
-              colors: [Colors.redAccent, Colors.blueAccent],
-              begin: Alignment.bottomRight,
-              end: Alignment.topLeft,
-            ),
-          ),
-        ),
+        // flexibleSpace: Container(
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.vertical(
+        //       bottom: Radius.circular(25),
+        //     ),
+        //     gradient: LinearGradient(
+        //       colors: [Colors.redAccent, Colors.blueAccent],
+        //       begin: Alignment.bottomRight,
+        //       end: Alignment.topLeft,
+        //     ),
+        //   ),
+        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -170,7 +173,8 @@ class _DriversInormationState extends State<DriversInormation> {
                 width: 180,
                 child: ElevatedButton(
                   onPressed: () {
-                    report(_name.text,_name2.text,_driverpermit.text,_validation.text,_driveradresse.text,context);
+                    report(_name.text, _name2.text, _driverpermit.text,
+                        _validation.text, _driveradresse.text, context);
                   },
                   child: Text('Submit'),
                   style: ElevatedButton.styleFrom(
