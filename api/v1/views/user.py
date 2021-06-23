@@ -9,6 +9,10 @@ from datetime import timezone
 from flask_jwt_extended import (
     get_jwt, create_access_token, create_refresh_token, jwt_required, get_jwt_identity)
 
+"""
+    User Route Model
+"""
+
 # ***************** signup Requirment ****************************** #
 signup = reqparse.RequestParser()
 signup.add_argument('Email', help='This field cannot be blank', required=True)
@@ -86,7 +90,6 @@ class Login(Resource):
         and generate token
         """
         data = login.parse_args()
-        print(data)
         current_user = Users.query.filter_by(email=data['Email']).one_or_none()
         password = request.json.get("Password", None)
         if not current_user:
@@ -120,7 +123,6 @@ class Login(Resource):
                     header = {}
                     header['refresh_token'] = refresh_token
                     header['access_token'] = access_token
-                    print(make_response(jsonify(body), 200, header))
                     return make_response(jsonify(body), 200, header)
                 else:
                     return make_response(jsonify({'message': 'Wrong credentials'}), 400)
@@ -198,7 +200,7 @@ class Logout(Resource):
 
 class sign_up(Resource):
     """
-    create user :
+    create new  user :
     """
     @swagger.operation(
         notes='Login',
@@ -287,7 +289,8 @@ class sign_up(Resource):
         )
     def post(self):
         """
-        create user :
+        create new user
+            Post Request
         """
         if not request.get_json():
             abort(400, description="Not a JSON")
@@ -318,8 +321,8 @@ class sign_up(Resource):
 
 class ClientUserForm(Resource):
     """
-        Put : modefie 
-        GET : Current user
+        Put : modifie exist User
+        GET : Current user information
 
     """
     @swagger.operation(

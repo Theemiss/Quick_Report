@@ -2,9 +2,20 @@
 from uuid import uuid4
 from api.v1.app import db
 from models.base import BaseModel
-
+"""
+Report Model
+"""
 
 class Report(db.Model, BaseModel):
+    """
+        Report Model and Database Table
+        Hold all The Data the accident Report
+        All Driver information 
+        Car_id : id of the Car Relationship and report
+        Company_id Company and report Relationhip (id)
+        client_id : id of a user Report user Relationship
+        feedbacks: Feedback report Relationship
+    """
     id = db.Column(db.String(80), primary_key=True)
     driver_name = db.Column(db.String(30), nullable=False)
     driver_lastname = db.Column(db.String(30), nullable=False)
@@ -19,6 +30,9 @@ class Report(db.Model, BaseModel):
     feedbacks = db.relationship('Feedback', backref='Report', lazy=True)
 
     def __init__(self, driver, car, client, company_id, l_name, addr, per, per_v):
+        """
+            __int__
+        """
         super().__init__()
         self.id = str(uuid4())
         self.driver_name = driver

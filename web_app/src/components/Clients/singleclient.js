@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-//import { Header, Footer } from '../common';
 import Menu from "../common/menu";
 import useToken from "../app/useToken";
 import "./client.css";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Car  from "./car"
-//import {Button} from 'reactstrap';
+/**
+ * Single Client Component
+ *  
+ */
 
 export default function ClientsId() {
   // eslint-disable-next-line

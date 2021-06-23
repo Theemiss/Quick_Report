@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-//import { Header, Footer } from '../common';
 import Menu from "../common/menu";
 import useToken from "../app/useToken";
 import "./client.css";
 import { Link } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Tab, Row, Col } from "react-bootstrap";
-//import {Button} from 'reactstrap';
-
+/**
+ * 
+ * @returns All Client Component
+ */
 export default function Clients() {
   // eslint-disable-next-line
   const { token, setToken } = useToken();
@@ -50,7 +51,7 @@ export default function Clients() {
         <Row>
           <Col sm={11}>
             {arr.map((user) => (
-              <ListGroup className="nayek">
+              <ListGroup className="Model_id">
                 <Link to={{ pathname: `user/${user.id}` }}>
                   {" "}
                   <ListGroup.Item className="  shadow mb-2  ">

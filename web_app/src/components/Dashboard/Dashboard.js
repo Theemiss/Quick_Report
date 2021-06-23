@@ -4,7 +4,10 @@ import Menu from "../common/menu";
 import "./Dashboard.css";
 import ChartistGraph from "react-chartist";
 import { Row, Col } from "react-bootstrap";
-
+/**
+ * Dashboard Component
+ *  
+ */
 export default function Dashboard() {
   const { token, setToken } = useToken();
   const [data, setData] = useState({});

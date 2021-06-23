@@ -7,7 +7,10 @@ from flask import abort, jsonify, make_response, request
 from datetime import datetime
 from flask_jwt_extended import (jwt_required, get_jwt_identity)
 from flask_restful_swagger import swagger
-
+"""
+    Car Routes
+"""
+# --------------------------- Car Data Checker in the Request -------------------------
 car_helper = reqparse.RequestParser()
 car_helper.add_argument(
     'Mark', help='This field cannot be blank', required=True)
@@ -21,7 +24,7 @@ car_helper.add_argument(
 
 class NewInsurance(Resource):
     """
-        Create new Insurance
+        Create new Insurance Route
     """
     @swagger.operation(
         notes='New Insurance ',
@@ -53,7 +56,10 @@ class NewInsurance(Resource):
     )
     def post(self):
         """
-        Create new Insurance
+        Create new Insurance Route
+
+            Post Request
+            
         """
         if not request.get_json():
             abort(400, description="Not a JSON")
@@ -67,6 +73,9 @@ class NewInsurance(Resource):
 
 
 class NewCar(Resource):
+    """
+        Create new Car Route
+    """
 
     @swagger.operation(
         notes='New Car ',
@@ -122,7 +131,8 @@ class NewCar(Resource):
     )
     def post(self):
         """
-        Create new Car
+        Create new Car Route
+            Post Request 
         """
         data = car_helper.parse_args()
         inID = Insurance.query.filter_by(id=data['InsuranceId']).first()
@@ -137,7 +147,7 @@ class NewCar(Resource):
 
 class GetUserCar(Resource):
     """
-        Match User by his car
+        Match User by his car Route
     """
     @swagger.operation(
         notes='Get current logged user Car ',
@@ -163,7 +173,9 @@ class GetUserCar(Resource):
     @jwt_required()
     def get(self):
         """
-        Match User by his car
+        Match User by his car Route 
+        Get Request 
+            
         """
         id_user = get_jwt_identity()
         user = Users.query.filter_by(id=id_user).first()

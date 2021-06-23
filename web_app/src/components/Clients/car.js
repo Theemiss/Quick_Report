@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-//import { Header, Footer } from '../common';
-import Menu from "../common/menu";
 import useToken from "../app/useToken";
 import "./client.css";
-import { Link, useParams } from "react-router-dom";
-import { Button } from "react-bootstrap";
-
+/**
+ * Car Component
+ * @param {*} props 
+ * @returns Car Component
+ */
 
 export default function Car(props){
     const { token, setToken } = useToken();
@@ -14,7 +14,7 @@ export default function Car(props){
     const [cars, setCar] = useState([]);
     console.log(props.id)
   useEffect(() => {
-    const fetchUsercar = async () => {
+    const fetchUserCar = async () => {
       const response = await fetch("http://102.37.113.211/api/company/client/car/" + props.id
       , {
         method: "GET",
@@ -30,7 +30,7 @@ export default function Car(props){
 
       setCar(cars);
     };
-    fetchUsercar();
+    fetchUserCar();
   },[]);
   const arr = [];
   for (const x in cars) {

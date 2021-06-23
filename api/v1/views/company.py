@@ -1,15 +1,12 @@
 
-from api.v1.views.ClientRapport import Reportid
 from models.car import Car
 from models.comapny import Company
 from models.user import Users
 from models.report import Report
-from flask_restful import reqparse, Resource
+from flask_restful import Resource
 from flask import abort, jsonify, make_response, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful_swagger import swagger
-rapport = reqparse.RequestParser()
-rapport.add_argument('Email', help='This field cannot be blank', required=True)
 
 
 class company_route_all(Resource):
@@ -40,7 +37,7 @@ class company_route_all(Resource):
     )
     def post(self):
         """
-        New company
+        New company Route
         """
         if not request.get_json():
             abort(400, description="Not a JSON")
@@ -157,7 +154,7 @@ class AdminUserID(Resource):
     @jwt_required()
     def get(self, id):
         """
-        Get specific user by id
+            Get specific user by id
         """
         Admin_id = get_jwt_identity()
         admin = Users.query.filter_by(id=Admin_id).first()
@@ -171,14 +168,14 @@ class AdminUserID(Resource):
             return make_response(jsonify({"error": "permission denied"}), 401)
 
 
-def repport_builder(cls, client, car):
+def report_builder(cls, client, car):
     user = Users.query.filter_by(id=client).first().to_dict()
-    
+
     if (user["authenticated"]) == False:
         car = Car.query.filter_by(id=car, CIN=user["CIN"]).first()
         rapport = cls.to_dict()
         data = {**user, **car.to_dict(), **rapport}
-        
+
         del data['__class__']
         del data['comany_token']
         del data['authenticated']
@@ -224,7 +221,7 @@ class CompanyAllRepport(Resource):
             all_report = {}
             for i in report:
                 try:
-                    value = repport_builder(
+                    value = report_builder(
                         i, i.client_id, i.car_id)
                     key = i.id
                     all_report[key] = value
