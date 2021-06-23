@@ -9,7 +9,7 @@ from flask_restful import reqparse, Resource
 from flask import abort, jsonify, make_response, request, render_template, make_response, send_from_directory
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import pdfkit
-from models.RapportMatcher import RapportCar
+from models.RapportMatcher import ReportCar
 from flask_restful_swagger import swagger
 #from flask_wkhtmltopdf import Wkhtmltopdf
 """
@@ -345,7 +345,7 @@ class ReportPdf(Resource):
             Generate pdf file for the rapport
         """
         try:
-            rapportmatcher = RapportCar.query.filter_by(id=a).first()
+            rapportmatcher = ReportCar.query.filter_by(id=a).first()
             CarA = Report.query.filter_by(id=rapportmatcher.CAR_A).first()
             CarB = Report.query.filter_by(id=rapportmatcher.CAR_B).first()
             CompanyA = Company.query.filter_by(id=CarA.compnay_id).first()
@@ -467,7 +467,7 @@ class MatcherA(Resource):
         Matcher.add_argument(
             'car_a', help='This field cannot be blank', required=True)
         data = Matcher.parse_args()
-        new = RapportCar(a=data['car_a'])
+        new = ReportCar(a=data['car_a'])
         new.save_to_db()
         return make_response(jsonify({"id": new.id}), 200)
 
@@ -485,7 +485,7 @@ class MatcherB(Resource):
         Matcher.add_argument(
             'id', help='This field cannot be blank', required=True)
         data = Matcher.parse_args()
-        report = RapportCar.query.filter_by(id=data['id']).first()
+        report = ReportCar.query.filter_by(id=data['id']).first()
         report.CAR_B = data['car_b']
         report.save_to_db()
         return make_response(jsonify({"id": report.id}), 200)
