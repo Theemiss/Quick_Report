@@ -1,6 +1,7 @@
+// Porfile module
+
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
-// import 'package:more_pro_ui_qr/home_screens/generated_reports.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
+  //Build
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,18 +27,6 @@ class _MyProfileState extends State<MyProfile> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.vertical(
-        //       bottom: Radius.circular(25),
-        //     ),
-        //     gradient: LinearGradient(
-        //       colors: [Colors.redAccent, Colors.blueAccent],
-        //       begin: Alignment.bottomRight,
-        //       end: Alignment.topLeft,
-        //     ),
-        //   ),
-        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(

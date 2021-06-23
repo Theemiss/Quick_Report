@@ -1,3 +1,5 @@
+// module that autogenerate date
+
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/screens/form_screens/non_owner_ifonrmation.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
@@ -11,6 +13,8 @@ class DateScreen extends StatefulWidget {
 
 class _DateScreenState extends State<DateScreen> {
   DateTime? _dateTime;
+
+  // Build
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,18 +30,6 @@ class _DateScreenState extends State<DateScreen> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.vertical(
-        //       bottom: Radius.circular(25),
-        //     ),
-        //     gradient: LinearGradient(
-        //       colors: [Colors.redAccent, Colors.blueAccent],
-        //       begin: Alignment.bottomRight,
-        //       end: Alignment.topLeft,
-        //     ),
-        //   ),
-        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(

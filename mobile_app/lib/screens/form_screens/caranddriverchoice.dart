@@ -1,3 +1,5 @@
+// Module that defines the users choice (vehicle A or vehicle B)
+
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
 import 'package:more_pro_ui_qr/buttons/cardropdownbutton.dart';
@@ -9,6 +11,7 @@ class FirstChoices extends StatefulWidget {
 }
 
 class _FirstChoicesState extends State<FirstChoices> {
+  //Build
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +27,6 @@ class _FirstChoicesState extends State<FirstChoices> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.vertical(
-        //       bottom: Radius.circular(25),
-        //     ),
-        //     gradient: LinearGradient(
-        //       colors: [Colors.redAccent, Colors.blueAccent],
-        //       begin: Alignment.bottomRight,
-        //       end: Alignment.topLeft,
-        //     ),
-        //   ),
-        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(

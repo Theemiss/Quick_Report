@@ -1,7 +1,12 @@
+// Module allowing the user to select his insurance company
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Item: Class
+// id: insurance company ID
+// name: insurance company name
 class Item {
   // ignore: non_constant_identifier_names
   var id;
@@ -12,6 +17,7 @@ class Item {
   }
 }
 
+// drop down button class
 class DropDownMenue extends StatefulWidget {
   const DropDownMenue({Key? key}) : super(key: key);
 
@@ -22,30 +28,27 @@ class DropDownMenue extends StatefulWidget {
 class _DropDownMenueState extends State<DropDownMenue> {
   List company = [];
 
+  // http get request to get the list of insurance companies
   fetchcompany() async {
     var url = 'http://102.37.113.211/api/hidden';
-   
+
     var response = await Dio().get(
       url,
-      options: Options(headers: {
-        'Content-Type': 'application/json'
-      }),
+      options: Options(headers: {'Content-Type': 'application/json'}),
     );
-    // print(response.data);
     return response.data;
   }
 
+  // Convert the reponse to list
   List mapToList(Map data) {
     List carsList = [];
     data.forEach((a, b) => carsList.add(b));
     return carsList;
   }
 
-
-
-
   Item? selectedCompany;
-   List<Item> companylist = [];
+  List<Item> companylist = [];
+  // rest the widget state
   @override
   void initState() {
     fetchcompany().then((data) {
@@ -61,8 +64,7 @@ class _DropDownMenueState extends State<DropDownMenue> {
     super.initState();
   }
 
-
-
+// Build
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,7 +77,6 @@ class _DropDownMenueState extends State<DropDownMenue> {
             selectedCompany = value;
           });
           savePref(value);
-
         },
         items: companylist.map((company) {
           return DropdownMenuItem(
@@ -90,12 +91,12 @@ class _DropDownMenueState extends State<DropDownMenue> {
   }
 }
 
+// get the saved token
 savePref(Item? car) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  if (car != null){
-      preferences.setString("companyId", car.id);
-        // ignore: deprecated_member_use
-        preferences.commit();
+  if (car != null) {
+    preferences.setString("companyId", car.id);
+    // ignore: deprecated_member_use
+    preferences.commit();
   }
-
 }

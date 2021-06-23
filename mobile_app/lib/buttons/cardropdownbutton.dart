@@ -1,7 +1,13 @@
+// Module allowing the user to select his car
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Item: Class
+// car_id: car ID
+// mark: car mark
+// type: car type
 class Item {
   // ignore: non_constant_identifier_names
   var car_id;
@@ -26,6 +32,7 @@ class SelectyourCar extends StatefulWidget {
 class _SelectyourCarState extends State<SelectyourCar> {
   List cars = [];
 
+  // hhtp get request to get information about cars using the token
   fetchCars() async {
     var url = 'http://102.37.113.211/api/client/cars';
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -43,6 +50,7 @@ class _SelectyourCarState extends State<SelectyourCar> {
     return response.data;
   }
 
+  // Convert the response to list
   List mapToList(Map data) {
     List carsList = [];
     data.forEach((a, b) => carsList.add(b));
@@ -51,6 +59,7 @@ class _SelectyourCarState extends State<SelectyourCar> {
 
   Item? selectedCar;
   List<Item> carsList = [];
+  // reset the widget state
   @override
   void initState() {
     fetchCars().then((data) {
@@ -66,6 +75,7 @@ class _SelectyourCarState extends State<SelectyourCar> {
     super.initState();
   }
 
+  // Build
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -78,7 +88,6 @@ class _SelectyourCarState extends State<SelectyourCar> {
             selectedCar = value;
           });
           savePref(value);
-       
         },
         items: carsList.map((car) {
           return DropdownMenuItem(
@@ -93,12 +102,12 @@ class _SelectyourCarState extends State<SelectyourCar> {
   }
 }
 
+// get the saved token
 savePref(Item? car) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  if (car != null){
-      preferences.setString("CarId", car.car_id);
-        // ignore: deprecated_member_use
-        preferences.commit();
+  if (car != null) {
+    preferences.setString("CarId", car.car_id);
+    // ignore: deprecated_member_use
+    preferences.commit();
   }
-
 }

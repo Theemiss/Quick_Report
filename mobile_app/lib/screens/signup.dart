@@ -1,9 +1,13 @@
+// This module shows the first sign up screen
+//
+// First user's information entry
+
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/buttons/insuranceselectablemenue.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+//Stateful widget of the signup screen
+// geting input inormation from user
 class FirstSignUpPage extends StatefulWidget {
   @override
   _FirstSignUpPageState createState() => _FirstSignUpPageState();
@@ -152,6 +156,7 @@ class _FirstSignUpPageState extends State<FirstSignUpPage> {
   }
 }
 
+// saving the users data in the cache memory of the phone
 savePref(String email, cin, password) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
 

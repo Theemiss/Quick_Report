@@ -1,12 +1,10 @@
-//import 'dart:convert';
-//import 'dart:async';
+// Main page if logged
+
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
-//import 'package:more_pro_ui_qr/home_screens/entities/acheived_reports.dart';
 import 'package:more_pro_ui_qr/home_screens/generated_reports.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'form_screens/caranddriverchoice.dart';
-//import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class ReportManager extends StatefulWidget {
@@ -16,7 +14,7 @@ class ReportManager extends StatefulWidget {
 
 class _ReportManagerState extends State<ReportManager> {
   List reports = [];
-
+  // Method that fetch the generated reports
   fetchReports() async {
     var url = 'http://102.37.113.211/api/client/report';
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -30,20 +28,9 @@ class _ReportManagerState extends State<ReportManager> {
       }),
     );
     return response.data;
-    //print(response.statusCode);
-    //if (response.statusCode == 200) {
-    //print(jsonDecode(response.body));
-
-    //Map<String, dynamic> reportsMap = jsonDecode(response.body);
-    //reportsMap.forEach((key, value) {
-    //reports.add(Report.fromJson(key, value));
-    //});
-
-    //print(reports);
-    //return reports.toList();
-    // return Report.fromJson(jsonDecode(response.body));
   }
 
+  // Convert the response to a list
   List mapToList(Map data) {
     List list = [];
     data.forEach((key, value) {
@@ -52,6 +39,7 @@ class _ReportManagerState extends State<ReportManager> {
     return list;
   }
 
+  // Reset the state
   @override
   void initState() {
     fetchReports().then((data) {
@@ -62,6 +50,7 @@ class _ReportManagerState extends State<ReportManager> {
     super.initState();
   }
 
+  // Build the page design
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,18 +66,6 @@ class _ReportManagerState extends State<ReportManager> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.vertical(
-        //       bottom: Radius.circular(25),
-        //     ),
-        //     gradient: LinearGradient(
-        //       colors: [Colors.redAccent, Colors.blueAccent],
-        //       begin: Alignment.bottomRight,
-        //       end: Alignment.topLeft,
-        //     ),
-        //   ),
-        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(

@@ -1,3 +1,5 @@
+// Module that difines if the user is the car owner or not
+
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
 import 'package:more_pro_ui_qr/screens/form_screens/date.dart';
@@ -6,6 +8,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
+// stateful widget class
 class DriverVsOwner extends StatefulWidget {
   @override
   _DriverVsOwnerState createState() => _DriverVsOwnerState();
@@ -13,6 +16,7 @@ class DriverVsOwner extends StatefulWidget {
 
 class _DriverVsOwnerState extends State<DriverVsOwner> {
   @override
+  // Build the class's design
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
@@ -27,18 +31,6 @@ class _DriverVsOwnerState extends State<DriverVsOwner> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.vertical(
-        //       bottom: Radius.circular(25),
-        //     ),
-        //     gradient: LinearGradient(
-        //       colors: [Colors.redAccent, Colors.blueAccent],
-        //       begin: Alignment.bottomRight,
-        //       end: Alignment.topLeft,
-        //     ),
-        //   ),
-        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -110,6 +102,7 @@ class _DriverVsOwnerState extends State<DriverVsOwner> {
   }
 }
 
+// http request
 user(BuildContext context) async {
   var url = 'http://102.37.113.211/api/client';
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -121,15 +114,17 @@ user(BuildContext context) async {
     options: Options(
         headers: {'Content-Type': 'application/json', 'Authorization': token}),
   );
-  // print(response.data);
+
   return response.data;
 }
 
+// sending the report information
 report(data, BuildContext context) async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   dynamic carid = prefs.getString('CarId');
   dynamic token = prefs.getString('jwt');
+  // ignore: non_constant_identifier_names
   String Token = "Bearer " + token;
   Map user = {
     'DriverName': data['first_name'],
@@ -144,6 +139,7 @@ report(data, BuildContext context) async {
       headers: {'Content-Type': 'application/json', "Authorization": Token},
       body: jsonEncode(user));
   if (response.statusCode == 201) {
+    // ignore: unused_local_variable
     Map mapresposne = jsonDecode(response.body);
     //print(Mapresposne);
     WidgetsFlutterBinding.ensureInitialized();
