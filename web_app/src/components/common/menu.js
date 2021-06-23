@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+/**
+ * Side Menu Component
+ */
 import "./menu.css";
 export default function Menu() {
   return (

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-//import { Header, Footer } from '../common';
 import Menu from "../common/menu";
 import useToken from "../app/useToken";
 import "./client.css";
 import { useParams } from "react-router-dom";
-
-//import {Button} from 'reactstrap';
+/**
+ * Report Component
+ * @returns 
+ */
 
 export default function ReportId() {
   // eslint-disable-next-line

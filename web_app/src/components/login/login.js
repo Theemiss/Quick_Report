@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 
 import TextField from "@material-ui/core/TextField";
-//import Typography from "@material-ui/core/Typography";
-//import { Link } from "react-router-dom"
 import PropTypes from "prop-types";
 import { Alert } from "reactstrap";
 import "./login.css";
-
+/**
+ * Login Component
+ * @param {*} credentials 
+ * @returns Saved Token
+ */
 async function loginUser(credentials) {
+  /**
+   * Login Function
+   */
   return fetch("http://102.37.113.211/api/login", {
     method: "POST",
     headers: {

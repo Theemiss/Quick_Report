@@ -1,6 +1,10 @@
 import React from "react";
 import Menu from "../common/menu";
 import "./about.css";
+
+/**
+ *  About Page Component
+ */
 export default function About() {
   return (
     <div className="body-pd">

@@ -1,8 +1,11 @@
 // eslint-disable-next-line
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import useToken from "../app/useToken";
-
+/**
+ * Logout Component
+ * @returns  Delete Token And Redirect
+ */
 export default function Logout() {
   let history = useHistory();
   // eslint-disable-next-line

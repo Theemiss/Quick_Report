@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-//import { Header, Footer } from '../common';
 import useToken from "../app/useToken";
 import "./client.css";
 import Menu from "../common/menu";
 import { Link } from "react-router-dom";
-
 import { Table } from "reactstrap";
-
+/**
+ * All Reports Component
+ * @returns 
+ */
 export default function Reports() {
   // eslint-disable-next-line
   const { token, setToken } = useToken();
