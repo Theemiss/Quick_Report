@@ -1,4 +1,5 @@
-// import 'package:flutter/cupertino.dart';
+// report: Class
+// For information sent from the report (from backend)
 
 class Report {
   var reportId;
@@ -46,19 +47,4 @@ class Report {
     this.phone = json["phone"];
     this.permit_validation = json["permit_validation"];
   }
-  // factory Report.fromJson(Map<String, dynamic> json) {
-  //   return Report(
-  //     reportId: Key,
-  //     insurance_id: json["insurance_id"],
-  //     first_name: json["first_name"],
-  //     last_name: json["last_name"],
-  //     driversName: json["DriverName"],
-  //     cin: json["CIN"],
-  //     adress: json["adresse"],
-  //     permit_id: json["permit_id"],
-  //     mark: json["mark"],
-  //     phone: json["phone"],
-  //     permit_validation: json["permit_validation"],
-  //   );
-  // }
 }

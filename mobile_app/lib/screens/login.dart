@@ -1,14 +1,18 @@
+// login page
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Stateful widget class of the login page
 class MyLogInPage extends StatefulWidget {
   @override
   _MyLogInPageState createState() => _MyLogInPageState();
 }
 
 class _MyLogInPageState extends State<MyLogInPage> {
+  // Build the screen
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
@@ -125,6 +129,9 @@ class _MyLogInPageState extends State<MyLogInPage> {
   }
 }
 
+// Get the Token
+// Set the status as user
+// Save the token in cache memory of the device
 savePref(String jwt) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
 
@@ -135,6 +142,7 @@ savePref(String jwt) async {
   preferences.commit();
 }
 
+// login methood
 login(email, password, BuildContext context) async {
   Map user = {'Email': email, 'Password': password};
   var url = Uri.parse('http://102.37.113.211/api/login');

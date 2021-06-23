@@ -1,5 +1,6 @@
-import 'dart:ui';
+// Module for general information about the app
 
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
 

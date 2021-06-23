@@ -1,8 +1,14 @@
+// This module shows the second sign up screen
+//
+// Second user's information entry
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+//Stateful widget of the signup screen
+// geting input inormation from user
 class SecondSignUpPage extends StatefulWidget {
   @override
   _SecondSignUpPageState createState() => _SecondSignUpPageState();
@@ -225,6 +231,9 @@ class _SecondSignUpPageState extends State<SecondSignUpPage> {
   }
 }
 
+// Get the ID token to login
+// Set the status as user
+// save the token in the cache memory of the device
 savePref(String jwt) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
 
@@ -235,6 +244,7 @@ savePref(String jwt) async {
   preferences.commit();
 }
 
+// Signup then login with the user's information
 signup(firstName, lastName, userAdress, phoneNumber, driverLicense, licenseDate,
     BuildContext context) async {
   WidgetsFlutterBinding.ensureInitialized();

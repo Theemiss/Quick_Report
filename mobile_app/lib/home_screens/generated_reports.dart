@@ -1,3 +1,5 @@
+// Module for generated reports
+
 import 'package:flutter/material.dart';
 
 // ignore: unused_import

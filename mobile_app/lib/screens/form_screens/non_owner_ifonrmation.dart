@@ -1,26 +1,29 @@
+// Page of users entries when he is not the car owner
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:more_pro_ui_qr/Navigation/navigation_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// import 'package:more_pro_ui_qr/screens/form_screens/check_boxes.dart';
-
+// User information entry class
 class DriversInormation extends StatefulWidget {
   @override
   _DriversInormationState createState() => _DriversInormationState();
 }
 
 class _DriversInormationState extends State<DriversInormation> {
+  // Controllers: user information
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     String? name, name2, driverpermit, validation, addre;
     TextEditingController _name = new TextEditingController();
     TextEditingController _name2 = new TextEditingController();
     TextEditingController _driverpermit = new TextEditingController();
     TextEditingController _driveradresse = new TextEditingController();
     TextEditingController _validation = new TextEditingController();
-
+    // Build the class design
     final _key = GlobalKey<FormState>();
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -35,18 +38,6 @@ class _DriversInormationState extends State<DriversInormation> {
             icon: Icon(Icons.notifications),
           ),
         ],
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.vertical(
-        //       bottom: Radius.circular(25),
-        //     ),
-        //     gradient: LinearGradient(
-        //       colors: [Colors.redAccent, Colors.blueAccent],
-        //       begin: Alignment.bottomRight,
-        //       end: Alignment.topLeft,
-        //     ),
-        //   ),
-        // ),
         elevation: 30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -232,11 +223,14 @@ class _DriversInormationState extends State<DriversInormation> {
   }
 }
 
+// http request (posting the user's information) using the token
+// ignore: non_constant_identifier_names
 report(name, name2, permit, permit_vald, adress, BuildContext context) async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   dynamic carid = prefs.getString('CarId');
   dynamic token = prefs.getString('jwt');
+  // ignore: non_constant_identifier_names
   String Token = "Bearer " + token;
   Map user = {
     'DriverName': name,
@@ -251,6 +245,7 @@ report(name, name2, permit, permit_vald, adress, BuildContext context) async {
       headers: {'Content-Type': 'application/json', "Authorization": Token},
       body: jsonEncode(user));
   if (response.statusCode == 201) {
+    // ignore: unused_local_variable
     Map mapresposne = jsonDecode(response.body);
     //print(Mapresposne);
     WidgetsFlutterBinding.ensureInitialized();

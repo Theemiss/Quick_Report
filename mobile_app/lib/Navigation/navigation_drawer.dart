@@ -1,3 +1,5 @@
+// Module for navigation menu button
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:more_pro_ui_qr/home_screens/myprofile.dart';
@@ -65,6 +67,7 @@ class NavigationDrawerWidget extends StatelessWidget {
     );
   }
 
+  // Switch selected item
   void selectedItem(BuildContext context, int index) {
     Navigator.of(context).pop();
     switch (index) {
@@ -92,6 +95,9 @@ class NavigationDrawerWidget extends StatelessWidget {
     }
   }
 
+  // logout method
+  // geting back the token
+  // using http request
   logoutFunction(BuildContext context) async {
     var url = Uri.parse('http://102.37.113.211/api/logout');
 
