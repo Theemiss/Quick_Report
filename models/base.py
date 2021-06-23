@@ -1,7 +1,9 @@
 from datetime import datetime
 from sqlalchemy import Column, DateTime
 from api.v1.app import db
-
+"""
+    Base Model
+"""
 
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""

@@ -1,4 +1,3 @@
-
 from datetime import datetime
 import os
 from models.car import Car
@@ -7,14 +6,16 @@ from models.feedback import Feedback
 from models.user import Users
 from models.report import Report
 from flask_restful import reqparse, Resource
-from flask import abort, json, jsonify, make_response, request, render_template, make_response, send_from_directory
+from flask import abort, jsonify, make_response, request, render_template, make_response, send_from_directory
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import pdfkit
 from models.RapportMatcher import RapportCar
 from flask_restful_swagger import swagger
 #from flask_wkhtmltopdf import Wkhtmltopdf
-
-UPLOAD_DIRECTORY = "media"
+"""
+    Reports Route Model
+"""
+UPLOAD_DIRECTORY = "media"  # Media Folder
 if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
 
@@ -75,7 +76,7 @@ class Media(Resource):
     )
     def get(self, path):
         """
-            get file
+            get file from server
         """
         return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
 
@@ -102,7 +103,7 @@ class Media(Resource):
     )
     def post(self, filename):
         """
-            send a file
+            send a file to server
         """
         if "/" in filename:
             # Return 400 BAD REQUEST
@@ -115,17 +116,17 @@ class Media(Resource):
         return make_response(jsonify({"File": "added"}), 201)
 
 
-rapport = reqparse.RequestParser()
-rapport.add_argument(
+report = reqparse.RequestParser()
+report.add_argument(
     'DriverName', help='This field cannot be blank', required=True)
-rapport.add_argument('CarId', help='This field cannot be blank', required=True)
-rapport.add_argument(
+report.add_argument('CarId', help='This field cannot be blank', required=True)
+report.add_argument(
     'DriverLastName', help='This field cannot be blank', required=True)
-rapport.add_argument(
+report.add_argument(
     'DriverPermit', help='This field cannot be blank', required=True)
-rapport.add_argument('DriverPermitValidation',
-                     help='This field cannot be blank', required=True)
-rapport.add_argument(
+report.add_argument('DriverPermitValidation',
+                    help='This field cannot be blank', required=True)
+report.add_argument(
     'DriverAdresse', help='This field cannot be blank', required=True)
 
 
@@ -214,12 +215,12 @@ class ReportNew(Resource):
             Create new repport
         """
         client_id = get_jwt_identity()
-        data = rapport.parse_args()
+        data = report.parse_args()
         user = Users.query.filter_by(id=client_id).first()
-        rp = Report(driver=data['DriverName'], client=client_id,
-                    car=data['CarId'], company_id=user.comany_token, l_name=data['DriverLastName'], addr=data['DriverAdresse'], per=data['DriverPermit'], per_v=datetime.utcnow())  # data['DriverPermitValidation']
-        rp.save_to_db()
-        return make_response(jsonify(rp.to_dict()), 201)
+        report_new = Report(driver=data['DriverName'], client=client_id,
+                            car=data['CarId'], company_id=user.comany_token, l_name=data['DriverLastName'], addr=data['DriverAdresse'], per=data['DriverPermit'], per_v=datetime.utcnow())  # data['DriverPermitValidation']
+        report_new.save_to_db()
+        return make_response(jsonify(report_new.to_dict()), 201)
 
     @swagger.operation(
         notes='get all report belong to this User ',
@@ -253,11 +254,11 @@ class ReportNew(Resource):
         all = {}
         for i in all_report:
             key = i.id
-            all[key] = repport_builder(i, i.client_id, i.car_id)
+            all[key] = report_builder(i, i.client_id, i.car_id)
         return make_response(jsonify(all), 200)
 
 
-def repport_builder(cls, client, car):
+def report_builder(cls, client, car):
     """
         Build a rapport dict
     """
@@ -307,7 +308,7 @@ class Reportid(Resource):
         user = Users.query.filter_by(id=client_id).first()
         report = Report.query.filter_by(client_id=client_id, id=id).first()
         if report is not None:
-            data = repport_builder(report, report.client_id, report.car_id)
+            data = report_builder(report, report.client_id, report.car_id)
             return make_response(jsonify(data), 200)
         else:
             return make_response(jsonify({}), 200)
@@ -456,6 +457,9 @@ class NewFeedBack(Resource):
 
 
 class MatcherA(Resource):
+    """
+        Add A Report without a B report
+    """
     @jwt_required()
     def post(self):
         user = get_jwt_identity()
@@ -470,6 +474,7 @@ class MatcherA(Resource):
 
 class MatcherB(Resource):
     """
+        Match report B with A
     """
     @jwt_required()
     def post(self):

@@ -1,7 +1,5 @@
 from flask import Flask, make_response, jsonify
-from datetime import datetime
 from datetime import timedelta
-from datetime import timezone
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
@@ -10,11 +8,13 @@ from flask_migrate import Migrate
 from flask_restful_swagger import swagger
 from dotenv import dotenv_values
 from flask_wkhtmltopdf import Wkhtmltopdf 
-
+"""
+ Global File Config And Route api instance
+"""
 config = dotenv_values('.env')
 app = Flask(__name__)
 wkhtmltopdf = Wkhtmltopdf(app)
-api = swagger.docs(Api(app), apiVersion='2.8')
+api = swagger.docs(Api(app), apiVersion='2.8') # swagger Init
 jwt = JWTManager(app)
 WKHTMLTOPDF_BIN_PATH = "" #path to your wkhtmltopdf installation.
 
@@ -32,9 +32,9 @@ app.config['JWT_SECRET_KEY'] = 'Qucikreportadmin'
 
 
 ACCESS_EXPIRES = timedelta(hours=24)
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = ACCESS_EXPIRES
-app.config['JWT_BLACKLIST_ENABLED'] = True
-app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = ACCESS_EXPIRES #Token Time Auto Revoke
+app.config['JWT_BLACKLIST_ENABLED'] = True # Enable Token Blocklist
+app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh'] #Type of Token
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -42,6 +42,9 @@ migrate = Migrate(app, db)
 
 
 class TokenBlocklist(db.Model):
+    """
+        db table for the jwt token Blocklist
+    """
     id = db.Column(db.Integer, primary_key=True)
     jti = db.Column(db.String(36), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
@@ -50,13 +53,20 @@ class TokenBlocklist(db.Model):
 # Callback function to check if a JWT exists in the database blocklist
 @jwt.token_in_blocklist_loader
 def check_if_token_revoked(jwt_header,jwt_payload):
+    """
+        Check if Token in Database Bloclist or Revoked
+        jwt_header: Header of the Request to check
+        jwt_payload: Body of the Request to Check
+    """
     jti = jwt_payload["jti"]
     token = db.session.query(TokenBlocklist.id).filter_by(jti=jti).scalar()
     return token is not None
 
-
 @app.before_first_request
 def create_tables():
+    """
+        First thing to excute  in first request to the server
+    """
     db.create_all()
 
 
