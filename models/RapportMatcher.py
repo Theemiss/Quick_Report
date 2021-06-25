@@ -15,7 +15,7 @@ class ReportCar(db.Model, BaseModel):
     """
     id = db.Column(db.String(80), primary_key=True)
     CAR_A = db.Column(db.String(80))
-    CAR_B = db.Column(db.String(80,default=""))
+    CAR_B = db.Column(db.String(80))
 
     def __init__(self, a="", b=""):
         super().__init__()
