@@ -34,6 +34,39 @@ class _MyProfileState extends State<MyProfile> {
           ),
         ),
       ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Form(
+              child: Column(
+                children: <Widget>[
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: TextFormField(
+                      // controller: _emailController,
+                      // onSaved: (val) {
+                      //   email = val;
+                      // },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                                const Radius.circular(50))),
+                        contentPadding: EdgeInsets.all(15),
+                        suffixIcon: Icon(Icons.email, size: 35),
+                        labelText: "First Name",
+                        // hintText: "Enter your email adress",
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

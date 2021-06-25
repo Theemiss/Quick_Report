@@ -67,6 +67,7 @@ class _FirstSignUpPageState extends State<FirstSignUpPage> {
                       onSaved: (val) {
                         password = val;
                       },
+                      obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
