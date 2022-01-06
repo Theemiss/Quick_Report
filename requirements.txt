@@ -12,5 +12,5 @@ python-dotenv
 psycopg2
 flask-apispec
 Flask-WkHTMLtoPDF
-celery==4.4.2
+celery==5.2.2
 flask_wkhtmltopdf
